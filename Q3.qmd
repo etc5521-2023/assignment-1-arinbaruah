@@ -1,0 +1,17 @@
+---
+title: "Q3"
+author: "YOUR NAME HERE"
+format: html
+---
+
+## Exercise 3
+
+Download the `numbats` data from [Tidy Tuesday](https://github.com/rfordatascience/tidytuesday/blob/master/data/2023/2023-03-07/readme.md), following the instructions on the website.
+
+a. Filter the data to be sightings after 2010.
+b. Count the number of sightings for each day.
+c. Make a stem-and-leaf of the sightings. Describe the shape. 
+d. If you were to transform the data to symmetrise, what function would you recommend? Explain why or why not this would be recommended for this variable.
+e. Following Tukey's EDA, identify which observation would be the median, Q1, Q3, and thus report the five-number-summary. Which statistic does Tukey refer to as the hinge?
+f. Compute the step, inner fence, outer fence. Make a Tukey-style schematic plot, hand-drawn. Which observations would be considered to be outliers?
+g. Use R to make a default boxplot. Which observations would be considered to be outliers? Why or why not is this a reasonable set of outliers? 

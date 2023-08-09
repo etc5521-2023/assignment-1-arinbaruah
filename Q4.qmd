@@ -1,0 +1,18 @@
+---
+title: "Q4"
+author: "YOUR NAME HERE"
+format: html
+---
+
+## Exercise 4
+
+In the Tutorial 2 exercise where `DataExplorer` report on `nycflights13` data was generated, we made some observations about the relationship between `arr_delay` and `dep_delay`. This question expands on this discussion.
+
+a. Write a paragraph explaining how you would expect arrival delay and departure delay of flights to be related, in less than 100 words.
+b. What units is delay reported in?
+c. Make a scatterplot of `arr_delay` vs `dep_delay`. Why should `dep_delay` be plotted on the horizontal axis?
+d. Describe the relationship between the two variables. 
+e. Explain whether the pattern is consistent with what you expected, or how it differs.
+f. How many flights have departure delays over 8 hours?
+g. For flights with departure delays over 8 hours, how many had shorter arrival delays?
+h. Based on these last calculations, would you say that it is typical for flights that are delayed on departure to catch up time during the flight?

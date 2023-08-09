@@ -1,0 +1,29 @@
+---
+title: "Q2"
+author: "YOUR NAME HERE"
+format: html
+---
+
+## Exercise 2
+
+A small cafe in the city of Melbourne is interested in determining whether the daily earnings depend on the weather. They compiled data for a period over 2000-2001 to study this question. Their data is provided. It has the following variables:
+
+```{r}
+#| echo: false
+library(kableExtra)
+desc <- tibble(var=c("dt", "wday", "revenue", "expend", "precip", "mint", "maxt", "source"),
+               description=c("Date", 
+              "Day of the week",
+              "Daily revenue in hundreds, 11=1100", 
+              "Daily expenses in hundreds",
+              "Precipitation in mm", 
+              "Minimum temperature, Celsius",
+              "Maximum temperature, Celsius",
+              "Source of the weather data"))
+kbl(desc, table.attr = 'data-quarto-disable-processing="true"') |> 
+  kable_styling(full_width = FALSE) |>
+  column_spec(1, width="2cm", border_right = T) |>
+  column_spec(2, width="10cm")
+```
+
+You need to conduct an **initial data analysis** to find and **report problems** that need to be fixed.

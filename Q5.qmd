@@ -1,0 +1,53 @@
+---
+title: "Q5"
+author: "YOUR NAME HERE"
+format: html
+---
+
+## Exercise 5
+
+In this exercise, you are asked to conduct inference to test for patterns in the penguins data.
+
+a. Pre-process the data to simplify the variable names to be `bl`, `bd`, `fl`, `bm`, keeping only these variables and the `species` variable, and to remove the two missing values.
+b. Make two scatterplots of `bm` vs `fl`, A and B, one where the species is coloured, as shown below.
+
+```{r}
+#| echo: false
+#| message: false
+#| fig-width: 10
+#| fig-height: 5
+library(palmerpenguins)
+library(colorspace)
+library(patchwork)
+library(tidyr)
+library(dplyr)
+library(ggplot2)
+penguins_sub <- penguins %>% 
+  select(bill_length_mm,
+         bill_depth_mm,
+         flipper_length_mm,
+         body_mass_g,
+         species, 
+         sex) %>% 
+  rename(bl = bill_length_mm,
+         bd = bill_depth_mm,
+         fl = flipper_length_mm,
+         bm = body_mass_g) %>%
+  na.omit()
+p1 <- ggplot(penguins_sub, aes(x=bm, y=fl)) +
+  geom_point() +
+  theme_minimal() +
+  theme(aspect.ratio=1, legend.position="none") + ggtitle("A")
+p2 <- ggplot(penguins_sub, aes(x=bl, y=bd, colour=species)) +
+  geom_point() +
+  scale_color_discrete_divergingx(palette="Zissou 1") +
+  theme_minimal() +
+  theme(aspect.ratio=1, legend.position="none") + ggtitle("B")
+p1 + p2
+```
+
+c. Construct a lineup of size 20 for plot A, that will enable assessing the strength of the linear relationship between `bm` and `fl`. Write down what is the null hypothesis, and how you have computed the null samples.
+
+d. Construct a lineup of size 20 for plot B, that will enable assessing the strength of the clustering of the three species. Write down what is the null hypothesis, and how you have computed the null samples.
+
+e. Show your lineups to 8 friends, **individually**, who are not taking this unit, and ask them to choose the most different plot, and to explain to you why they have made that choice. Compute and report the $p$-value, and summarise the reasons that your friends made. (You need to show this to each friend individually so that you get an independent evaluation of the plot.)

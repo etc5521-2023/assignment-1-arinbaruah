@@ -1,0 +1,9 @@
+---
+title: "Q1"
+author: "YOUR NAME HERE"
+format: html
+---
+
+## Exercise 1
+
+The [blog post by Manuel Rademaker](https://www.manuel-rademaker.com/blog/tidy_tuesday/2021_05_15_ceo_depatures/) describes a neat analysis of the [Tidy Tuesday](https://github.com/rfordatascience/tidytuesday) data on CEO departures. Re-run this analysis for yourself. Report any problems reproducing the results. Your primary task for this exercise is to outline all of the parts of the analysis, and label them as EDA, IDA or confirmatory analysis.
