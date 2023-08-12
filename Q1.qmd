@@ -220,6 +220,10 @@ ggplot(ceo_changes, aes(x = departure_no, y = departure_label, group = exec_full
 
 The above plot is a point plot which is used mainly for two sets of categorical axes. Since the above point plot is hard to understand by itself, hence, specific modifications are done in the next step to gain further insights.
 
+<div class="alert alert-info">
+  📈 Usage of various plots such as the point plot in this case forms a part of <b> exploratory data analysis </b>.📊 
+</div>
+
 
 
 ```{r}
@@ -253,5 +257,13 @@ ggplot(ceo_changes, aes(x = departure_no, y = departure_label)) +
    theme(legend.position="bottom")
 ```
 
-As per the analysis from the above plot,
+As per the analysis from the above plot, we are able to draw specific inferences. Some of these inferences were :
 
+1. Retirement doesn’t seem to be “final”. Some CEOs come back. 
+2. Two CEOs appear 4 times in the data set. None of them left for legal or bad performance reasons.
+3. No overwhelmingly clear connection but certainly some interesting insights.
+
+
+<div class="alert alert-info">
+  🎯 As we can observe, we are able to confirm clear inferences from the plots visualised. Being able make claims based on data,statistical treatments, and plots form an integral section of <b> confirmatory data analysis </b>. 🎯
+</div>
