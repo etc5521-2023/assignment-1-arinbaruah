@@ -35,9 +35,9 @@ ceo <- read_csv("departures.csv")
 
 The data for CEO departures has been sourced from the [Tidy Tuesday](https://github.com/rfordatascience/tidytuesday) library. The analysis will be re-run and each section will be classified into one of the following types of analysis:
 
-1. Initial Data Analysis:
-2. Exploratory Data Analysis: 
-3. Confirmatory Data Analysis:
+1. Initial Data Analysis ⚠️:
+2. Exploratory Data Analysis 📊: 
+3. Confirmatory Data Analysis 🎯:
 
 
 # Visualising the various datatypes in each variable
@@ -50,7 +50,11 @@ vis_dat(ceo)
 
 The above plot allows us to understand the various types of datatypes in each of the 20 variables in the dataset. The greyed out sections indicate the presence of null values in the dataset, while the colored sections indicate the corresponding datatype for each variable.
 
-Such a type of analysis allows us to understand the distribution of missing values, and the types of datatypes present in the dataset, further laying the path for the data pre-processing techniques to be used in later part of the analysis. Hence, we can classify such an analysis as __Initial Data Analysis__.
+
+
+<div class="alert alert-info">
+  ⚠️ Such a type of analysis allows us to understand the distribution of missing values, and the types of datatypes present in the dataset, further laying the path for the data pre-processing techniques to be used in later part of the analysis. Hence, we can classify such an analysis as <b> Initial Data Analysis </b>. ⚠️.
+</div>
 
 # Develop research questions and hypotheses
 
@@ -62,12 +66,16 @@ The following research questions were posed for the current dataset.
 4. Look at companies and their CEO turnover. Which companies stand out (e.g., because they dismiss many CEOs).
 5. If possible, look at the history of some interesting CEOs. Maybe there are some that stand out (e.g. because they always left for legal reasons).
 
-Setting up specific research questions and addressing key strategies to answer such questions generally forms a part of the __confirmatory data analysis__.
+
+<div class="alert alert-info">
+  🎯 Setting up specific research questions and addressing key strategies to answer such questions generally forms a part of the <b> confirmatory data analysis </b>. 🎯
+</div>
 
 
 # Reason for CEO departure
 
-```{r ceodep, fig.cap="Initial CEO departure barplot"}
+{#fig:ceodep}
+```{r ceodep,fig.cap="Initial CEO departure barplot"}
 ggplot(ceo, aes(y = departure_code)) + 
    geom_bar(fill = "lightblue") +
    labs(
@@ -84,6 +92,7 @@ ceo %>%
    count()
 ```
 
+
 ```{r}
 ceo_reduced <- ceo %>% 
    filter(departure_code %in% 3:7) %>% 
@@ -99,12 +108,19 @@ ceo_reduced <- ceo %>%
 ```
 
 
+
+<div class="alert alert-info">
+  ⚠️ Until this section, the code chunks majorly dealt with gaining more information from the raw data through data pre-processing. Such activities generally constitute an integral part of <b> initial data analysis </b> . ⚠️  .
+</div>
+
+
+
 ```{r}
 ceo_reduced %>% 
    group_by(departure_label) %>% 
    count() %>% 
    ggplot(aes(y = fct_reorder(departure_label, n), x = n)) + 
-   geom_col(fill = main_color) +
+   geom_col(fill = "darkblue") +
    labs(
       title = "CEO depature by reason",
       subtitle = "S&P 1500 firms between 1987 - 2019",
@@ -115,4 +131,127 @@ ceo_reduced %>%
    scale_x_continuous(breaks = scales::breaks_width(500))
 ```
 
+# Reason for departure over time
+
+```{r}
+ceo_reduced %>%
+   group_by(fyear, departure_label) %>% 
+   count() %>% 
+   ggplot(aes(x = fyear, y = n, color = departure_label)) + 
+   geom_line() + 
+   labs(
+      title = "CEO departure by reason over time",
+      subtitle = "S&P 1500 firms between 1987 - 2019",
+      color = "Reason",
+      y     = "",
+      x     = ""
+   )
+```
+
+
+```{r}
+ceo_reduced %>%
+   filter(fyear != "1987-01-01")  %>%
+   group_by(fyear, departure_label) %>% 
+   count() %>% 
+   group_by(fyear) %>% 
+   mutate(share_fyear = n/sum(n)) %>% 
+   ungroup() %>% # for fct_reorder!
+   mutate(departure_label = fct_reorder(departure_label, -share_fyear, last)) %>% 
+   ggplot(aes(x = fyear, y = share_fyear, color = departure_label)) + 
+   geom_line() + 
+   labs(
+      title = "CEO departure by Reason over time",
+      subtitle = "S&P 1500 firms between 1987 - 2019",
+      color = "Reason",
+      x     = "",
+      y     = "% of total departures"
+   ) + 
+   scale_y_continuous(labels = scales::label_percent()) +
+   scale_x_date(
+      breaks = scales::breaks_width("4 years"),
+      labels = scales::label_date("%Y")
+      )
+```
+
+<div class="alert alert-info">
+  📈 In this section, we observe the use of plots to gain deeper insights for understanding the reasons for departure. The use of lineplots and the subsequent feature engineering done to create the proportion of departures are integral steps done in <b> exploratory data analysis </b> .📊 
+</div>
+
+# Trajectories
+
+This section focuses specifically on CEOs who appear more than once in the dataset. The following code chunk creates the required variable and visualises the same using a lineplot as follows.
+
+```{r}
+ceo_al_twice <- ceo_reduced %>%
+   group_by(exec_fullname) %>% 
+   mutate(appears_al_twice = n(), .after = departure_label) %>% 
+   filter(appears_al_twice > 1) %>%
+   ungroup()
+
+length(unique(ceo_al_twice$exec_fullname))
+```
+
+
+
+```{r}
+table(ceo_al_twice$appears_al_twice) / c(2, 3, 4)
+```
+
+```{r}
+ceo_changes <- ceo_al_twice %>% 
+   arrange(fyear) %>% 
+   group_by(exec_fullname) %>% 
+   mutate(departure_no = 1:n(), .after = departure_label,
+          departure_no = fct_inorder(recode(departure_no,
+             `1` = "First departure",
+             `2` = "Second departure",
+             `3` = "Third departure",
+             `4` = "Fourth departure"))) %>% 
+   ungroup()
+
+ggplot(ceo_changes, aes(x = departure_no, y = departure_label, group = exec_fullname)) + 
+   geom_line() +
+   labs(
+      x = "",
+      y = ""
+   )
+```
+
+The above plot is a point plot which is used mainly for two sets of categorical axes. Since the above point plot is hard to understand by itself, hence, specific modifications are done in the next step to gain further insights.
+
+
+
+```{r}
+ceo_changes_freq <- ceo_changes %>% 
+   count(departure_label, departure_no)
+
+ceo_4_changes <- ceo_changes %>% 
+   filter(appears_al_twice  == 4)
+
+ggplot(ceo_changes, aes(x = departure_no, y = departure_label)) + 
+   geom_line(aes(group = exec_fullname), alpha = 0.2) +
+   geom_point(
+      data = ceo_changes_freq, 
+      mapping = aes(size = n)) + 
+   geom_line(
+      data = ceo_4_changes, 
+      mapping = aes(group = exec_fullname, color = exec_fullname),
+      show.legend = FALSE) +
+   geom_text(      
+      data = filter(ceo_4_changes, departure_no  == "Fourth departure"), 
+      mapping = aes(label = exec_fullname),
+      nudge_y = -0.1
+      ) + 
+   labs(
+      title = "Trajectories of the reasons for CEO departure",
+      subtitle = "S&P 1500 firms between 1987 - 2019",
+      x = "",
+      y = "",
+      size = "Number of cases"
+   ) + 
+   theme(legend.position="bottom")
+```
+
+As per the analysis from the above plot,
 
