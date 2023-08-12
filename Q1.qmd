@@ -20,15 +20,25 @@ knitr::opts_chunk$set(echo = TRUE,
 
 ```{r library-setup,message=FALSE,warning=FALSE}
 
-library(ggplot2)
 library(tidytuesdayR)
 library(tidyverse)
 library(visdat)
 ```
 
+<div class="alert alert-block alert-warning">
+❌ One of the first issues observed while running the current analysis is the libraries which have been read.Towards the later sections of the analysis, we observe that the library "Ggplot2" has been extensively used for creating the plots to perform analysis. Hence, this library will be added in the code chunk below. ❌ 
+</div>
 
 
-```{r load-data,message=FALSE,warning=FALSE}
+```{r}
+tt  <- tidytuesdayR::tt_load('2021-04-27')
+ceo <- tt$departures
+```
+
+
+
+
+```{r load-local-data,message=FALSE,warning=FALSE}
 ceo <- read_csv("departures.csv")
 ```
 
@@ -74,16 +84,35 @@ The following research questions were posed for the current dataset.
 
 # Reason for CEO departure
 
-{#fig:ceodep}
-```{r ceodep,fig.cap="Initial CEO departure barplot"}
+
+```{r ceodep,fig.cap="Initial CEO departure barplot",message=FALSE,echo=TRUE,eval=FALSE}
 ggplot(ceo, aes(y = departure_code)) + 
-   geom_bar(fill = "lightblue") +
+   geom_bar(fill = main_color) +  # Main_color not defined yet
    labs(
       title    = "Reason for CEO departure",
       x = "",
       y = ""
    )
 ```
+<div class="alert alert-block alert-warning">
+❌  Based on the code chunk above, we can observe that the "fill" argument is based on the variable "main_color" which has not been specified in the current analysis. This throws up an error while plotting. Let us specify the variable main color. ❌ 
+</div>
+
+```{r}
+main_color <- "darkblue"  #Main_Color defined
+ggplot(ceo, aes(y = departure_code)) + 
+   geom_bar(fill = main_color) +
+   labs(
+      title    = "Reason for CEO departure",
+      x = "",
+      y = ""
+   )
+
+```
+
+
+
+
 As figure \@ref(fig:ceodep) does not provide much information regarding CEO departures, the following techniques were done to improve the plot.
 
 ```{r}
@@ -120,7 +149,7 @@ ceo_reduced %>%
    group_by(departure_label) %>% 
    count() %>% 
    ggplot(aes(y = fct_reorder(departure_label, n), x = n)) + 
-   geom_col(fill = "darkblue") +
+   geom_col(fill = main_color) +
    labs(
       title = "CEO depature by reason",
       subtitle = "S&P 1500 firms between 1987 - 2019",
