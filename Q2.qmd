@@ -1,12 +1,12 @@
 ---
-title: "Q2"
+title: "ETC 5521 Assignment 1 Q2"
 author: "Arindom Baruah (32779267)"
-format: html
+format: 
+  html:
+    number-sections: true
+    theme: spacelab
 ---
 
-
-
-# <u> ETC 5521 Assignment 1 Q2 </u>
 
 ![](https://editor.analyticsvidhya.com/uploads/3951420200902_blog_-forecasting-with-time-series-models-using-python_pt2_website.png)
 
@@ -35,12 +35,13 @@ library(kableExtra)
 library(tidyverse)
 library(here)
 library(visdat)
+library(lubridate)
 
 ```
 
 
 
-## Data description
+# Data description
 
 As a part of the initial data analysis, we need to describe the various variables present in the dataset. The variables are described in @tbl-metdata.
 
@@ -94,7 +95,7 @@ kbl(head(cafe), table.attr = 'data-quarto-disable-processing="true"') |>
 
 ```
 
-## Data screening
+# Data screening
 
 The second step in the initial data analysis would be to check for the datatypes associated with each variable. We can identify the datatypes through the glimpse function as shown below.
 
@@ -103,6 +104,16 @@ glimpse(cafe)
 ```
 
 
+Let us now try to visualise the datatypes using a visdat plot.
+
+```{r}
+#| fig-cap: Datatypes for each variable
+#| label: fig-datviz
+
+vis_dat(cafe)
+```
+
+Based on the glimpsed dataset and @fig-datviz, 
 
 <div class="alert alert-block alert-warning">
 
@@ -115,10 +126,82 @@ We are able to observe the following issues with the datatypes of each variables
 </div>
 
 
+Now that we have identified the variables with the incorrect datatypes, we will transform them into the required datatypes which will allow us to further analyse our dataset.
+
+## Converting date to datetime
+
+In order to convert the dates into suitable format, we will need to conduct a quick __sanity check__. Let us first check the dates in its current form.
+
+```{r}
+head(cafe$dt)
+```
+Based on the above output, we see that the dates are in the format of "MM-DD-YY". Hence, an appropriate treatment to the dates will be done to convert them into the required datetime format as shown through the code chunk below.
+
+```{r}
+cafe$dt <- mdy(cafe$dt)
+```
+
+
+## Obtaining day of week from date
+
+While the column "wday" is already in its appropriate format and datatype, however, we will replace this column by obtaining the weekday from the date column. This would serve as an __added validation__ and will prevent any incorrect entries of weekday in the dataset. Furthermore, the column will be converted into an ordered factor datatype which would allow for easier analysis and visualisations in later sections.
+
+```{r}
+cafe$wday <- wday(cafe$dt,
+                  label = TRUE)
+```
+
+
+## Converting expenditure and precipitation variables
+
+The values of expenditures and precipitations should ideally be numerical in nature as they are continuous values. The following code chunk will convert the datatypes for these variables into a suitable datatype for numerical analysis.
+
+```{r}
+#| warning: false
+cafe$precip <- as.numeric(cafe$precip)
+cafe$expend <- as.numeric(cafe$expend)
+```
+
+Let us now visualise the new datatypes using the visdat package once again as illustrated by @fig-newdataviz
+
+```{r}
+#| label: fig-newdataviz
+#| fig-cap: Datatypes of variables after data screening
+
+vis_dat(cafe)
+```
+
+<div class="alert alert-block alert-success">
+✅  Upon successful data screening, we now have a dataset with each variable being attributed with an appropriate datatype. ✅
+</div>
 
 
 
+# Data cleaning
+
+In this section, we will be mainly concerned with the quality of our data. Upon assessing the quality of the data, we will utilise various data cleaning methods to improve the overall usability of the dataset.
+
+## Missing values in the dataset
+
+Let us try to visualise the presence of missing values in the dataset using the vis-miss visualisation.
+
+```{r}
+#| label: fig-vismis
+#| fig-cap: Missing values in the dataset
+
+vis_miss(cafe)
+```
 
 
+Based on illustration of @fig-vismis,
 
+<div class="alert alert-block alert-warning">
+
+⚠️‼️
+
+While the overall dataset is fairly clean, the missing values constitute about <b> 0.3% </b> of the entire dataset. These missing values are observed in the expenditure,precipitation and the revenue variables. 
+
+⚠️‼️
+
+</div>
 

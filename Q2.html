@@ -8,7 +8,7 @@
 
 <meta name="author" content="Arindom Baruah (32779267)">
 
-<title>Q2</title>
+<title>ETC 5521 Assignment 1 Q2</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -85,7 +85,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Q2</h1>
+<h1 class="title">ETC 5521 Assignment 1 Q2</h1>
 </div>
 
 
@@ -106,8 +106,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="etc-5521-assignment-1-q2" class="level1">
-<h1><u> ETC 5521 Assignment 1 Q2 </u></h1>
 <p><img src="https://editor.analyticsvidhya.com/uploads/3951420200902_blog_-forecasting-with-time-series-models-using-python_pt2_website.png" class="img-fluid"></p>
 <div class="warning" style="background-color:#8bd69f; color: #000301; border-left: solid #044716 4px; border-radius: 4px; padding:0.7em;">
 <span>
@@ -122,8 +120,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </p>
 <p></p>
 </span></div>
-<section id="data-description" class="level2">
-<h2 class="anchored" data-anchor-id="data-description">Data description</h2>
+<section id="data-description" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Data description</h1>
 <p>As a part of the initial data analysis, we need to describe the various variables present in the dataset. The variables are described in <a href="#tbl-metdata">Table&nbsp;1</a>.</p>
 <div class="cell">
 <div class="cell-output-display">
@@ -276,8 +274,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="data-screening" class="level2">
-<h2 class="anchored" data-anchor-id="data-screening">Data screening</h2>
+<section id="data-screening" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Data screening</h1>
 <p>The second step in the initial data analysis would be to check for the datatypes associated with each variable. We can identify the datatypes through the glimpse function as shown below.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(cafe)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -294,6 +292,19 @@ $ maxt    &lt;dbl&gt; 23.00000, 21.00000, 18.77056, 29.23121, 25.81983, 32.74231
 $ source  &lt;chr&gt; "BOSM", "BOSM", "NOAE", "NOAE", "NOAE", "NOAE", "NOAE", "BOSM"…</code></pre>
 </div>
 </div>
+<p>Let us now try to visualise the datatypes using a visdat plot.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vis_dat</span>(cafe)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-datviz" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Q2_files/figure-html/fig-datviz-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;1: Datatypes for each variable</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Based on the glimpsed dataset and <a href="#fig-datviz">Figure&nbsp;1</a>,</p>
 <div class="alert alert-block alert-warning">
 <p>⚠️‼️ We are able to observe the following issues with the datatypes of each variables:</p>
 <ol type="1">
@@ -301,6 +312,76 @@ $ source  &lt;chr&gt; "BOSM", "BOSM", "NOAE", "NOAE", "NOAE", "NOAE", "NOAE", "B
 <li><b> expend (Expenditure) </b>: The expenditure variable is in the character datatype while these are continuous numerical values. Hence, this variable will be converted to a numerical datatype.</li>
 <li><b> precip (Precipitation) </b>: The precipitation variable which shows the precipitation value is a character variable while it contains continuous numerical values. Hence, this variable will be converted to a numerical variable.</li>
 </ol>
+</div>
+<p>Now that we have identified the variables with the incorrect datatypes, we will transform them into the required datatypes which will allow us to further analyse our dataset.</p>
+<section id="converting-date-to-datetime" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="converting-date-to-datetime"><span class="header-section-number">2.1</span> Converting date to datetime</h2>
+<p>In order to convert the dates into suitable format, we will need to conduct a quick <strong>sanity check</strong>. Let us first check the dates in its current form.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(cafe<span class="sc">$</span>dt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "12-16-00" "12-17-00" "12-18-00" "12-19-00" "12-20-00" "12-21-00"</code></pre>
+</div>
+</div>
+<p>Based on the above output, we see that the dates are in the format of “MM-DD-YY”. Hence, an appropriate treatment to the dates will be done to convert them into the required datetime format as shown through the code chunk below.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>cafe<span class="sc">$</span>dt <span class="ot">&lt;-</span> <span class="fu">mdy</span>(cafe<span class="sc">$</span>dt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="obtaining-day-of-week-from-date" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="obtaining-day-of-week-from-date"><span class="header-section-number">2.2</span> Obtaining day of week from date</h2>
+<p>While the column “wday” is already in its appropriate format and datatype, however, we will replace this column by obtaining the weekday from the date column. This would serve as an <strong>added validation</strong> and will prevent any incorrect entries of weekday in the dataset. Furthermore, the column will be converted into an ordered factor datatype which would allow for easier analysis and visualisations in later sections.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>cafe<span class="sc">$</span>wday <span class="ot">&lt;-</span> <span class="fu">wday</span>(cafe<span class="sc">$</span>dt,</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">label =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="converting-expenditure-and-precipitation-variables" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="converting-expenditure-and-precipitation-variables"><span class="header-section-number">2.3</span> Converting expenditure and precipitation variables</h2>
+<p>The values of expenditures and precipitations should ideally be numerical in nature as they are continuous values. The following code chunk will convert the datatypes for these variables into a suitable datatype for numerical analysis.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>cafe<span class="sc">$</span>precip <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(cafe<span class="sc">$</span>precip)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>cafe<span class="sc">$</span>expend <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(cafe<span class="sc">$</span>expend)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Let us now visualise the new datatypes using the visdat package once again as illustrated by <a href="#fig-newdataviz">Figure&nbsp;2</a></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vis_dat</span>(cafe)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-newdataviz" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Q2_files/figure-html/fig-newdataviz-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;2: Datatypes of variables after data screening</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="alert alert-block alert-success">
+<p>✅ Upon successful data screening, we now have a dataset with each variable being attributed with an appropriate datatype. ✅</p>
+</div>
+</section>
+</section>
+<section id="data-cleaning" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Data cleaning</h1>
+<p>In this section, we will be mainly concerned with the quality of our data. Upon assessing the quality of the data, we will utilise various data cleaning methods to improve the overall usability of the dataset.</p>
+<section id="missing-values-in-the-dataset" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="missing-values-in-the-dataset"><span class="header-section-number">3.1</span> Missing values in the dataset</h2>
+<p>Let us try to visualise the presence of missing values in the dataset using the vis-miss visualisation.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vis_miss</span>(cafe)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-vismis" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Q2_files/figure-html/fig-vismis-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;3: Missing values in the dataset</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Based on illustration of <a href="#fig-vismis">Figure&nbsp;3</a>,</p>
+<div class="alert alert-block alert-warning">
+<p>⚠️‼️</p>
+<p>While the overall dataset is fairly clean, the missing values constitute about <b> 0.3% </b> of the entire dataset. These missing values are observed in the expenditure,precipitation and the revenue variables.</p>
+<p>⚠️‼️</p>
 </div>
 </section>
 </section>
