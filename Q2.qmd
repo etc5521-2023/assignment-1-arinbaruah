@@ -4,7 +4,7 @@ author: "Arindom Baruah (32779267)"
 format: html
 ---
 
-## Exercise 2
+# Exercise 2
 
 A small cafe in the city of Melbourne is interested in determining whether the daily earnings depend on the weather. They compiled data for a period over 2000-2001 to study this question. Their data is provided. It has the following variables:
 
@@ -12,6 +12,7 @@ A small cafe in the city of Melbourne is interested in determining whether the d
 #| echo: false
 library(kableExtra)
 library(tidyverse)
+library(here)
 desc <- tibble(var=c("dt", "wday", "revenue", "expend", "precip", "mint", "maxt", "source"),
                description=c("Date", 
               "Day of the week",
@@ -31,6 +32,25 @@ You need to conduct an **initial data analysis** to find and **report problems**
 
 
 ```{r}
-df_cafe <- load("cafe.rda")
+cafe <- load("cafe.rda")
 ```
+
+
+## Checking datatypes
+
+The first step in the initial data analysis would be to check for the datatypes associated with each variable. We can identify the datatypes through the glimpse function as shown below.
+
+```{r}
+glimpse(cafe)
+```
+
+
+
+<div class="alert alert-block alert-warning">
+We are able to observe the following issues with the datatypes of each variables:
+
+1. <b> Date </b>: The date variable is in the character format and will need to be converted to datetime format.
+2. <b> Expend </b>: The expend variable is in the character datatype while these are continuous numerical values. Hence, this variable will be converted to a numerical datatype.
+3. <b> precip </b>: The precip variable which shows the precipitation value is a character variable while it contains continuous numerical values. Hence, this variable will be converted to a numerical variable.
+</div>
 
