@@ -4,15 +4,47 @@ author: "Arindom Baruah (32779267)"
 format: html
 ---
 
-# Exercise 2
 
-A small cafe in the city of Melbourne is interested in determining whether the daily earnings depend on the weather. They compiled data for a period over 2000-2001 to study this question. Their data is provided. It has the following variables:
 
-```{r}
+# <u> ETC 5521 Assignment 1 Q2 </u>
+
+![](https://editor.analyticsvidhya.com/uploads/3951420200902_blog_-forecasting-with-time-series-models-using-python_pt2_website.png)
+
+
+<div class="warning" style='background-color:#8bd69f; color: #000301; border-left: solid #044716 4px; border-radius: 4px; padding:0.7em;'>
+<span>
+<p style='margin-top:1em; text-align:center'>
+<b>What are we trying to study ?</b></p>
+<p style='margin-left:1em;'>
+
+
+<b> A small cafe in the city of Melbourne is interested in determining whether the daily earnings depend on the weather. They compiled data for a period over 2000-2001 to study this question. An initial data analysis for the dataset will be conducted in the following sections to prepare the dataset for further exploratory data 
+
+</p>
+<p style='margin-bottom:1em; margin-right:1em; text-align:right; font-family:Georgia'> </b> <i></i>
+</p></span>
+</div>
+
+
+
+```{r library-load}
 #| echo: false
+#| message: false
+#| warning: false
 library(kableExtra)
 library(tidyverse)
 library(here)
+library(visdat)
+library(kableExtra)
+
+```
+
+
+
+## Data description
+
+```{r}
+
 desc <- tibble(var=c("dt", "wday", "revenue", "expend", "precip", "mint", "maxt", "source"),
                description=c("Date", 
               "Day of the week",
@@ -28,17 +60,39 @@ kbl(desc, table.attr = 'data-quarto-disable-processing="true"') |>
   column_spec(2, width="10cm")
 ```
 
-You need to conduct an **initial data analysis** to find and **report problems** that need to be fixed.
+We need to conduct an **initial data analysis** to find and **report problems** that need to be fixed.
 
 
-```{r}
-cafe <- load("cafe.rda")
+```{r load-data}
+load("cafe.rda")
 ```
 
 
-## Checking datatypes
+As a part of the initial data analysis, we need to describe the various variables present in the dataset. The variables may be described as follows:
 
-The first step in the initial data analysis would be to check for the datatypes associated with each variable. We can identify the datatypes through the glimpse function as shown below.
+1. __dt__: Date of observation
+2. __wday__: The day of the week corresponding to the observation date.
+3. __revenue__: Revenue generated for the observation date.
+4. __expend__: Expenditures incurred for the observation date.
+5. __precip__: Precipitation value on the observation date.
+6. __mint__: Minimum temperature on the observation date.
+7. __maxt__: Maximum temperature on the observation date.
+8. __source__: Source of the weather data.
+
+Let us get an understanding of how the data looks like by checking the first few rows.
+
+```{r table}
+
+kbl(head(cafe), table.attr = 'data-quarto-disable-processing="true"') |> 
+  kable_styling(full_width = FALSE) |>
+  column_spec(1, width="2cm", border_right = T) |>
+  column_spec(2, width="10cm")
+
+```
+
+## Data screening
+
+The second step in the initial data analysis would be to check for the datatypes associated with each variable. We can identify the datatypes through the glimpse function as shown below.
 
 ```{r}
 glimpse(cafe)
@@ -47,10 +101,20 @@ glimpse(cafe)
 
 
 <div class="alert alert-block alert-warning">
+
+⚠️‼️
 We are able to observe the following issues with the datatypes of each variables:
 
-1. <b> Date </b>: The date variable is in the character format and will need to be converted to datetime format.
-2. <b> Expend </b>: The expend variable is in the character datatype while these are continuous numerical values. Hence, this variable will be converted to a numerical datatype.
-3. <b> precip </b>: The precip variable which shows the precipitation value is a character variable while it contains continuous numerical values. Hence, this variable will be converted to a numerical variable.
+1. <b> dt (Date) </b>: The date variable is in the character format and will need to be converted to datetime format.
+2. <b> expend (Expenditure) </b>: The expenditure variable is in the character datatype while these are continuous numerical values. Hence, this variable will be converted to a numerical datatype.
+3. <b> precip (Precipitation) </b>: The precipitation variable which shows the precipitation value is a character variable while it contains continuous numerical values. Hence, this variable will be converted to a numerical variable. 
 </div>
+
+
+
+
+
+
+
+
 
