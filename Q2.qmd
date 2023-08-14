@@ -35,7 +35,6 @@ library(kableExtra)
 library(tidyverse)
 library(here)
 library(visdat)
-library(kableExtra)
 
 ```
 
@@ -43,7 +42,12 @@ library(kableExtra)
 
 ## Data description
 
+As a part of the initial data analysis, we need to describe the various variables present in the dataset. The variables are described in @tbl-metdata.
+
 ```{r}
+#| echo: false
+#| label: tbl-metdata
+#| tbl-cap: "Metadata"
 
 desc <- tibble(var=c("dt", "wday", "revenue", "expend", "precip", "mint", "maxt", "source"),
                description=c("Date", 
@@ -60,7 +64,7 @@ kbl(desc, table.attr = 'data-quarto-disable-processing="true"') |>
   column_spec(2, width="10cm")
 ```
 
-We need to conduct an **initial data analysis** to find and **report problems** that need to be fixed.
+
 
 
 ```{r load-data}
@@ -68,7 +72,7 @@ load("cafe.rda")
 ```
 
 
-As a part of the initial data analysis, we need to describe the various variables present in the dataset. The variables may be described as follows:
+
 
 1. __dt__: Date of observation
 2. __wday__: The day of the week corresponding to the observation date.
@@ -79,14 +83,14 @@ As a part of the initial data analysis, we need to describe the various variable
 7. __maxt__: Maximum temperature on the observation date.
 8. __source__: Source of the weather data.
 
-Let us get an understanding of how the data looks like by checking the first few rows.
+Let us get an understanding of how the data looks like by checking @tbl-head.
 
 ```{r table}
+#| label: tbl-head
+#| tbl-cap: "Initial observations of the dataset"
 
 kbl(head(cafe), table.attr = 'data-quarto-disable-processing="true"') |> 
-  kable_styling(full_width = FALSE) |>
-  column_spec(1, width="2cm", border_right = T) |>
-  column_spec(2, width="10cm")
+  kable_styling(full_width = FALSE) 
 
 ```
 

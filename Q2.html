@@ -124,23 +124,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </span></div>
 <section id="data-description" class="level2">
 <h2 class="anchored" data-anchor-id="data-description">Data description</h2>
+<p>As a part of the initial data analysis, we need to describe the various variables present in the dataset. The variables are described in <a href="#tbl-metdata">Table&nbsp;1</a>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>desc <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">var=</span><span class="fu">c</span>(<span class="st">"dt"</span>, <span class="st">"wday"</span>, <span class="st">"revenue"</span>, <span class="st">"expend"</span>, <span class="st">"precip"</span>, <span class="st">"mint"</span>, <span class="st">"maxt"</span>, <span class="st">"source"</span>),</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">description=</span><span class="fu">c</span>(<span class="st">"Date"</span>, </span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>              <span class="st">"Day of the week"</span>,</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>              <span class="st">"Daily revenue in hundreds, 11=1100"</span>, </span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>              <span class="st">"Daily expenses in hundreds"</span>,</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>              <span class="st">"Precipitation in mm"</span>, </span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>              <span class="st">"Minimum temperature, Celsius"</span>,</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>              <span class="st">"Maximum temperature, Celsius"</span>,</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>              <span class="st">"Source of the weather data"</span>))</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(desc, <span class="at">table.attr =</span> <span class="st">'data-quarto-disable-processing="true"'</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">full_width =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">1</span>, <span class="at">width=</span><span class="st">"2cm"</span>, <span class="at">border_right =</span> T) <span class="sc">|&gt;</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">2</span>, <span class="at">width=</span><span class="st">"10cm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
+<div id="tbl-metdata" class="anchored">
 
-<table data-quarto-disable-processing="true" class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<table data-quarto-disable-processing="true" class="table" style="width: auto !important; margin-left: auto; margin-right: auto;"><caption>Table&nbsp;1:  <p>Metadata</p> </caption>
  <thead>
   <tr>
    <th style="text-align:left;"> var </th>
@@ -185,11 +174,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </div>
 </div>
-<p>We need to conduct an <strong>initial data analysis</strong> to find and <strong>report problems</strong> that need to be fixed.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"cafe.rda"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>As a part of the initial data analysis, we need to describe the various variables present in the dataset. The variables may be described as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"cafe.rda"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <ol type="1">
 <li><strong>dt</strong>: Date of observation</li>
 <li><strong>wday</strong>: The day of the week corresponding to the observation date.</li>
@@ -200,15 +188,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>maxt</strong>: Maximum temperature on the observation date.</li>
 <li><strong>source</strong>: Source of the weather data.</li>
 </ol>
-<p>Let us get an understanding of how the data looks like by checking the first few rows.</p>
+<p>Let us get an understanding of how the data looks like by checking <a href="#tbl-head">Table&nbsp;2</a>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(<span class="fu">head</span>(cafe), <span class="at">table.attr =</span> <span class="st">'data-quarto-disable-processing="true"'</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">full_width =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">1</span>, <span class="at">width=</span><span class="st">"2cm"</span>, <span class="at">border_right =</span> T) <span class="sc">|&gt;</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">2</span>, <span class="at">width=</span><span class="st">"10cm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(<span class="fu">head</span>(cafe), <span class="at">table.attr =</span> <span class="st">'data-quarto-disable-processing="true"'</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">full_width =</span> <span class="cn">FALSE</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
+<div id="tbl-head" class="anchored">
 
-<table data-quarto-disable-processing="true" class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<table data-quarto-disable-processing="true" class="table" style="width: auto !important; margin-left: auto; margin-right: auto;"><caption>Table&nbsp;2:  <p>Initial observations of the dataset</p> </caption>
  <thead>
   <tr>
    <th style="text-align:left;"> dt </th>
@@ -223,8 +210,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:left;width: 2cm; border-right:1px solid;"> 12-16-00 </td>
-   <td style="text-align:left;width: 10cm; "> Sat </td>
+   <td style="text-align:left;"> 12-16-00 </td>
+   <td style="text-align:left;"> Sat </td>
    <td style="text-align:right;"> 10.97 </td>
    <td style="text-align:left;"> 7.21 </td>
    <td style="text-align:left;"> 0.4 </td>
@@ -233,8 +220,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    <td style="text-align:left;"> BOSM </td>
   </tr>
   <tr>
-   <td style="text-align:left;width: 2cm; border-right:1px solid;"> 12-17-00 </td>
-   <td style="text-align:left;width: 10cm; "> Sun </td>
+   <td style="text-align:left;"> 12-17-00 </td>
+   <td style="text-align:left;"> Sun </td>
    <td style="text-align:right;"> 12.13 </td>
    <td style="text-align:left;"> 6.01 </td>
    <td style="text-align:left;"> 0.6 </td>
@@ -243,8 +230,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    <td style="text-align:left;"> BOSM </td>
   </tr>
   <tr>
-   <td style="text-align:left;width: 2cm; border-right:1px solid;"> 12-18-00 </td>
-   <td style="text-align:left;width: 10cm; "> Mon </td>
+   <td style="text-align:left;"> 12-18-00 </td>
+   <td style="text-align:left;"> Mon </td>
    <td style="text-align:right;"> 11.27 </td>
    <td style="text-align:left;"> 0.64 </td>
    <td style="text-align:left;"> 0 </td>
@@ -253,8 +240,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    <td style="text-align:left;"> NOAE </td>
   </tr>
   <tr>
-   <td style="text-align:left;width: 2cm; border-right:1px solid;"> 12-19-00 </td>
-   <td style="text-align:left;width: 10cm; "> Tue </td>
+   <td style="text-align:left;"> 12-19-00 </td>
+   <td style="text-align:left;"> Tue </td>
    <td style="text-align:right;"> 14.33 </td>
    <td style="text-align:left;"> 4.06 </td>
    <td style="text-align:left;"> 0 </td>
@@ -263,8 +250,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    <td style="text-align:left;"> NOAE </td>
   </tr>
   <tr>
-   <td style="text-align:left;width: 2cm; border-right:1px solid;"> 12-20-00 </td>
-   <td style="text-align:left;width: 10cm; "> Wed </td>
+   <td style="text-align:left;"> 12-20-00 </td>
+   <td style="text-align:left;"> Wed </td>
    <td style="text-align:right;"> 15.61 </td>
    <td style="text-align:left;"> 3 </td>
    <td style="text-align:left;"> 0 </td>
@@ -273,8 +260,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    <td style="text-align:left;"> NOAE </td>
   </tr>
   <tr>
-   <td style="text-align:left;width: 2cm; border-right:1px solid;"> 12-21-00 </td>
-   <td style="text-align:left;width: 10cm; "> Thu </td>
+   <td style="text-align:left;"> 12-21-00 </td>
+   <td style="text-align:left;"> Thu </td>
    <td style="text-align:right;"> 18.37 </td>
    <td style="text-align:left;"> 2.63 </td>
    <td style="text-align:left;"> 0 </td>
@@ -287,12 +274,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </div>
 </div>
+</div>
 </section>
 <section id="data-screening" class="level2">
 <h2 class="anchored" data-anchor-id="data-screening">Data screening</h2>
 <p>The second step in the initial data analysis would be to check for the datatypes associated with each variable. We can identify the datatypes through the glimpse function as shown below.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(cafe)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(cafe)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 91
 Columns: 8
