@@ -99,6 +99,8 @@ ggplot(ceo, aes(y = departure_code)) +
 </div>
 
 ```{r}
+#| label: fig-plot
+#| fig-cap: "Plot of CEO departures"
 main_color <- "darkblue"  #Main_Color defined
 ggplot(ceo, aes(y = departure_code)) + 
    geom_bar(fill = main_color) +
@@ -113,7 +115,7 @@ ggplot(ceo, aes(y = departure_code)) +
 
 
 
-As figure \@ref(fig:ceodep) does not provide much information regarding CEO departures, the following techniques were done to improve the plot.
+As figure @fig-plot does not provide much information regarding CEO departures, the following techniques were done to improve the plot.
 
 ```{r}
 ceo %>% 
@@ -145,6 +147,10 @@ ceo_reduced <- ceo %>%
 
 
 ```{r}
+
+#| label: fig-plot-res
+#| fig-cap: "CEO depature by reason"
+
 ceo_reduced %>% 
    group_by(departure_label) %>% 
    count() %>% 
@@ -163,6 +169,9 @@ ceo_reduced %>%
 # Reason for departure over time
 
 ```{r}
+#| label: fig-plot-red
+#| fig-cap: "CEO depature by reason"
+
 ceo_reduced %>%
    group_by(fyear, departure_label) %>% 
    count() %>% 
@@ -202,6 +211,8 @@ ceo_reduced %>%
       labels = scales::label_date("%Y")
       )
 ```
+
+Based on 
 
 <div class="alert alert-info">
   📈 In this section, we observe the use of plots to gain deeper insights for understanding the reasons for departure. The use of lineplots and the subsequent feature engineering done to create the proportion of departures are integral steps done in <b> exploratory data analysis </b> .📊 
@@ -296,3 +307,6 @@ As per the analysis from the above plot, we are able to draw specific inferences
 <div class="alert alert-info">
   🎯 As we can observe, we are able to confirm clear inferences from the plots visualised. Being able make claims based on data,statistical treatments, and plots form an integral section of <b> confirmatory data analysis </b>. 🎯
 </div>
+
+
+

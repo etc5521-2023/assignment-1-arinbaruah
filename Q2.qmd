@@ -1,6 +1,6 @@
 ---
 title: "Q2"
-author: "YOUR NAME HERE"
+author: "Arindom Baruah (32779267)"
 format: html
 ---
 
@@ -11,6 +11,7 @@ A small cafe in the city of Melbourne is interested in determining whether the d
 ```{r}
 #| echo: false
 library(kableExtra)
+library(tidyverse)
 desc <- tibble(var=c("dt", "wday", "revenue", "expend", "precip", "mint", "maxt", "source"),
                description=c("Date", 
               "Day of the week",
@@ -27,3 +28,9 @@ kbl(desc, table.attr = 'data-quarto-disable-processing="true"') |>
 ```
 
 You need to conduct an **initial data analysis** to find and **report problems** that need to be fixed.
+
+
+```{r}
+df_cafe <- load("cafe.rda")
+```
+
