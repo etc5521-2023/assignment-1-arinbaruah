@@ -4,7 +4,7 @@ author: "Arindom Baruah (32779267)"
 format: 
   html:
     number-sections: true
-    theme: spacelab
+    theme: journal
 ---
 
 
@@ -216,6 +216,8 @@ In the next part, we will observe how we can deal with the missing values in the
 ```{r}
 #| label: fig-preciphist
 #| fig-cap: Distribution of precipitation values
+#| warning: false
+#| message: false
 pl1 <- ggplot(data = cafe, aes(x = precip)) +
   geom_histogram(fill = 'lightgreen', color = 'black') + geom_vline(xintercept = median(cafe$precip, na.rm = TRUE),
                                                                     color = 'red') + theme_classic() + labs(x = "Precipitation value (in mm)", y = "Number of observations") + annotate("text", x = 14, y = 85, label = paste0("Median precipitaion value:",median(cafe$precip,na.rm = TRUE)),color='red') 
@@ -242,6 +244,8 @@ cafe$precip <- cafe$precip %>% replace_na(median(cafe$precip,na.rm=TRUE))
 ```{r}
 #| label: fig-expendhist
 #| fig-cap: Distribution of expenditure values
+#| warning: false
+#| message: false
 pl2 <- ggplot(data = cafe, aes(x = expend)) +
   geom_histogram(fill = 'lightblue', color = 'black') + geom_vline(xintercept = median(cafe$expend, na.rm = TRUE),
                                                                     color = 'red') + theme_classic() + labs(x = "Expenditure (in hundreads) $", y = "Number of observations") + annotate("text", x = 2, y = 85, label = paste0("Median expenditure value:",median(cafe$expend,na.rm = TRUE)),color='red') 
@@ -287,3 +291,42 @@ cafe$revenue <- cafe$revenue %>% replace_na(median(cafe$revenue,na.rm=TRUE))
 <div class="alert alert-block alert-success">
 ✅  We have successfully performed data imputation and removed all missing values by replacing them with median values of each variable. As a result, the data can be considered <b> clean </b>. ✅
 </div>
+
+
+# Conclusion
+
+<div class="warning" style='background-color:#57bdd4; color: #000301; border-left: solid #044716 4px; border-radius: 4px; padding:0.7em;'>
+<span>
+<p style='margin-top:1em; text-align:center'>
+<b>What are our key takeaways ?</b></p>
+<p style='margin-left:1em;'>
+
+
+The following key steps were performed as a part of initial data analysis :
+
+1. Datatypes for each variable were assessed and visualised.
+2. Appropriate datatypes were assigned for date,expenditure and precipitation.
+3. The weekday variable was obtained from the date of observation using the lubridate package to prevent presence of any incorrect data entries.
+4. Data cleaning operations were conducted by checking for the presence of missing values.
+5. Based on the distribution of each variable, data imputation was conducted to treat the missing values.
+
+</p>
+<p style='margin-bottom:1em; margin-right:1em; text-align:right; font-family:Georgia'> </b> <i></i>
+</p></span>
+</div>
+
+
+# Resources
+
+The above analysis was undertaken with the help of the following software and packages:
+
+1. __RStudio__: Integrated Development for R. RStudio, PBC, Boston, MA URL http://www.rstudio.com/.
+2. __ggplot2__: H. Wickham. ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York, 2016.
+3. __tidyverse__: Wickham H, Averick M, Bryan J, Chang W, McGowan LD, François R, Grolemund G, Hayes A, Henry L, Hester J, Kuhn M, Pedersen TL, Miller E, Bache SM, Müller K,
+  Ooms J, Robinson D, Seidel DP, Spinu V, Takahashi K, Vaughan D, Wilke C, Woo K, Yutani H (2019). “Welcome to the tidyverse.” _Journal of Open Source Software_,
+  *4*(43), 1686. doi:10.21105/joss.01686 <https://doi.org/10.21105/joss.01686>.
+4. __knitr__: Yihui Xie (2014) knitr: A Comprehensive Tool for Reproducible Research in R. In Victoria Stodden, Friedrich Leisch and Roger D. Peng, editors, Implementing
+  Reproducible Computational Research. Chapman and Hall/CRC. ISBN 978-1466561595.
+5. __rmarkdown__: Allaire J, Xie Y, Dervieux C, McPherson J, Luraschi J, Ushey K, Atkins A, Wickham H, Cheng J, Chang W, Iannone R (2023). _rmarkdown: Dynamic Documents for R_.
+  R package version 2.23, <https://github.com/rstudio/rmarkdown>.
+6. __kableExtra__: Zhu H (2023). _kableExtra: Construct Complex Table with 'kable' and Pipe Syntax_. http://haozhu233.github.io/kableExtra
