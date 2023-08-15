@@ -36,7 +36,7 @@ library(tidyverse)
 library(here)
 library(visdat)
 library(lubridate)
-
+library(plotly)
 ```
 
 
@@ -199,9 +199,91 @@ Based on illustration of @fig-vismis,
 
 ⚠️‼️
 
-While the overall dataset is fairly clean, the missing values constitute about <b> 0.3% </b> of the entire dataset. These missing values are observed in the expenditure,precipitation and the revenue variables. 
+While the overall dataset is fairly clean, the missing values constitute about <b> 0.4% </b> of the entire dataset. These missing values are observed in the expenditure,precipitation and the revenue variables. 
 
 ⚠️‼️
 
 </div>
 
+In the next part, we will observe how we can deal with the missing values in the dataset. Let us first visualise the distribution of the variables to get an understanding of a suitable method to either replace or remove the missing values in the dataset. This process is popularly termed as __data imputation__.
+
+
+## Data imputation
+
+### Precipitation
+
+
+```{r}
+#| label: fig-preciphist
+#| fig-cap: Distribution of precipitation values
+pl1 <- ggplot(data = cafe, aes(x = precip)) +
+  geom_histogram(fill = 'lightgreen', color = 'black') + geom_vline(xintercept = median(cafe$precip, na.rm = TRUE),
+                                                                    color = 'red') + theme_classic() + labs(x = "Precipitation value (in mm)", y = "Number of observations") + annotate("text", x = 14, y = 85, label = paste0("Median precipitaion value:",median(cafe$precip,na.rm = TRUE)),color='red') 
+pl1
+
+
+```
+
+@fig-preciphist illustrates the distribution of precipitation values. Upon analysing the data, we can observe that on most days, the precipitation values are low. The median value of precipitation amounted to `r median(cafe$precip,na.rm=TRUE)` mm. Furthermore, median values are generally unaffected by the presence of outlier values.
+
+Hence, __replacing the missing values with the median values could be a safe assumption to make__. 
+
+Let us imputate the  missing values through the code chunk below.
+
+```{r}
+cafe$precip <- cafe$precip %>% replace_na(median(cafe$precip,na.rm=TRUE))
+```
+
+
+
+
+### Expenditure
+
+```{r}
+#| label: fig-expendhist
+#| fig-cap: Distribution of expenditure values
+pl2 <- ggplot(data = cafe, aes(x = expend)) +
+  geom_histogram(fill = 'lightblue', color = 'black') + geom_vline(xintercept = median(cafe$expend, na.rm = TRUE),
+                                                                    color = 'red') + theme_classic() + labs(x = "Expenditure (in hundreads) $", y = "Number of observations") + annotate("text", x = 2, y = 85, label = paste0("Median expenditure value:",median(cafe$expend,na.rm = TRUE)),color='red') 
+pl2
+
+
+```
+
+@fig-expendhist illustrates a histogram of the distribution of the expenditure values. The median value of precipitation amounted to `r median(cafe$expend *100,na.rm=TRUE)` $.
+
+Let us imputate the  missing expenditure values with the median values through the code chunk below.
+
+```{r}
+cafe$expend <- cafe$expend %>% replace_na(median(cafe$expend,na.rm=TRUE))
+```
+
+
+### Revenue
+
+
+```{r}
+#| label: fig-expendrev
+#| fig-cap: Distribution of revenue values
+#| message: false
+#| warning: false
+pl3 <- ggplot(data = cafe, aes(x = revenue)) +
+  geom_histogram(fill = 'lightblue', color = 'black') + geom_vline(xintercept = median(cafe$revenue, na.rm = TRUE),
+                                                                    color = 'red') + theme_classic() + labs(x = "Revenue (in hundreads) $", y = "Number of observations") + annotate("text", x = 22, y = 85, label = paste0("Median expenditure value:",median(cafe$revenue,na.rm = TRUE)),color='red') 
+pl3
+
+
+```
+
+@fig-expendrev illustrates a histogram of the distribution of the revenue values. The median value of precipitation amounted to `r median(cafe$revenue *100,na.rm=TRUE)` $.
+
+Let us imputate the  missing expenditure values with the median values through the code chunk below.
+
+```{r}
+cafe$revenue <- cafe$revenue %>% replace_na(median(cafe$revenue,na.rm=TRUE))
+```
+
+
+<div class="alert alert-block alert-success">
+✅  We have successfully performed data imputation and removed all missing values by replacing them with median values of each variable. As a result, the data can be considered <b> clean </b>. ✅
+</div>

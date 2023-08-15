@@ -380,9 +380,95 @@ $ source  &lt;chr&gt; "BOSM", "BOSM", "NOAE", "NOAE", "NOAE", "NOAE", "NOAE", "B
 <p>Based on illustration of <a href="#fig-vismis">Figure&nbsp;3</a>,</p>
 <div class="alert alert-block alert-warning">
 <p>⚠️‼️</p>
-<p>While the overall dataset is fairly clean, the missing values constitute about <b> 0.3% </b> of the entire dataset. These missing values are observed in the expenditure,precipitation and the revenue variables.</p>
+<p>While the overall dataset is fairly clean, the missing values constitute about <b> 0.4% </b> of the entire dataset. These missing values are observed in the expenditure,precipitation and the revenue variables.</p>
 <p>⚠️‼️</p>
 </div>
+<p>In the next part, we will observe how we can deal with the missing values in the dataset. Let us first visualise the distribution of the variables to get an understanding of a suitable method to either replace or remove the missing values in the dataset. This process is popularly termed as <strong>data imputation</strong>.</p>
+</section>
+<section id="data-imputation" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="data-imputation"><span class="header-section-number">3.2</span> Data imputation</h2>
+<section id="precipitation" class="level3" data-number="3.2.1">
+<h3 data-number="3.2.1" class="anchored" data-anchor-id="precipitation"><span class="header-section-number">3.2.1</span> Precipitation</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>pl1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> cafe, <span class="fu">aes</span>(<span class="at">x =</span> precip)) <span class="sc">+</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">'lightgreen'</span>, <span class="at">color =</span> <span class="st">'black'</span>) <span class="sc">+</span> <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">median</span>(cafe<span class="sc">$</span>precip, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>                                                                    <span class="at">color =</span> <span class="st">'red'</span>) <span class="sc">+</span> <span class="fu">theme_classic</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Precipitation value (in mm)"</span>, <span class="at">y =</span> <span class="st">"Number of observations"</span>) <span class="sc">+</span> <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">14</span>, <span class="at">y =</span> <span class="dv">85</span>, <span class="at">label =</span> <span class="fu">paste0</span>(<span class="st">"Median precipitaion value:"</span>,<span class="fu">median</span>(cafe<span class="sc">$</span>precip,<span class="at">na.rm =</span> <span class="cn">TRUE</span>)),<span class="at">color=</span><span class="st">'red'</span>) </span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>pl1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 1 rows containing non-finite values (`stat_bin()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div id="fig-preciphist" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Q2_files/figure-html/fig-preciphist-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;4: Distribution of precipitation values</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><a href="#fig-preciphist">Figure&nbsp;4</a> illustrates the distribution of precipitation values. Upon analysing the data, we can observe that on most days, the precipitation values are low. The median value of precipitation amounted to 0.2 mm. Furthermore, median values are generally unaffected by the presence of outlier values.</p>
+<p>Hence, <strong>replacing the missing values with the median values could be a safe assumption to make</strong>.</p>
+<p>Let us imputate the missing values through the code chunk below.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>cafe<span class="sc">$</span>precip <span class="ot">&lt;-</span> cafe<span class="sc">$</span>precip <span class="sc">%&gt;%</span> <span class="fu">replace_na</span>(<span class="fu">median</span>(cafe<span class="sc">$</span>precip,<span class="at">na.rm=</span><span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="expenditure" class="level3" data-number="3.2.2">
+<h3 data-number="3.2.2" class="anchored" data-anchor-id="expenditure"><span class="header-section-number">3.2.2</span> Expenditure</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>pl2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> cafe, <span class="fu">aes</span>(<span class="at">x =</span> expend)) <span class="sc">+</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">'lightblue'</span>, <span class="at">color =</span> <span class="st">'black'</span>) <span class="sc">+</span> <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">median</span>(cafe<span class="sc">$</span>expend, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>                                                                    <span class="at">color =</span> <span class="st">'red'</span>) <span class="sc">+</span> <span class="fu">theme_classic</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Expenditure (in hundreads) $"</span>, <span class="at">y =</span> <span class="st">"Number of observations"</span>) <span class="sc">+</span> <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">2</span>, <span class="at">y =</span> <span class="dv">85</span>, <span class="at">label =</span> <span class="fu">paste0</span>(<span class="st">"Median expenditure value:"</span>,<span class="fu">median</span>(cafe<span class="sc">$</span>expend,<span class="at">na.rm =</span> <span class="cn">TRUE</span>)),<span class="at">color=</span><span class="st">'red'</span>) </span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>pl2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 1 rows containing non-finite values (`stat_bin()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div id="fig-expendhist" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Q2_files/figure-html/fig-expendhist-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;5: Distribution of expenditure values</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><a href="#fig-expendhist">Figure&nbsp;5</a> illustrates a histogram of the distribution of the expenditure values. The median value of precipitation amounted to 583.5 $.</p>
+<p>Let us imputate the missing expenditure values with the median values through the code chunk below.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>cafe<span class="sc">$</span>expend <span class="ot">&lt;-</span> cafe<span class="sc">$</span>expend <span class="sc">%&gt;%</span> <span class="fu">replace_na</span>(<span class="fu">median</span>(cafe<span class="sc">$</span>expend,<span class="at">na.rm=</span><span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="revenue" class="level3" data-number="3.2.3">
+<h3 data-number="3.2.3" class="anchored" data-anchor-id="revenue"><span class="header-section-number">3.2.3</span> Revenue</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>pl3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> cafe, <span class="fu">aes</span>(<span class="at">x =</span> revenue)) <span class="sc">+</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">'lightblue'</span>, <span class="at">color =</span> <span class="st">'black'</span>) <span class="sc">+</span> <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fu">median</span>(cafe<span class="sc">$</span>revenue, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>                                                                    <span class="at">color =</span> <span class="st">'red'</span>) <span class="sc">+</span> <span class="fu">theme_classic</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Revenue (in hundreads) $"</span>, <span class="at">y =</span> <span class="st">"Number of observations"</span>) <span class="sc">+</span> <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">22</span>, <span class="at">y =</span> <span class="dv">85</span>, <span class="at">label =</span> <span class="fu">paste0</span>(<span class="st">"Median expenditure value:"</span>,<span class="fu">median</span>(cafe<span class="sc">$</span>revenue,<span class="at">na.rm =</span> <span class="cn">TRUE</span>)),<span class="at">color=</span><span class="st">'red'</span>) </span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>pl3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-expendrev" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Q2_files/figure-html/fig-expendrev-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;6: Distribution of revenue values</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><a href="#fig-expendrev">Figure&nbsp;6</a> illustrates a histogram of the distribution of the revenue values. The median value of precipitation amounted to 1755 $.</p>
+<p>Let us imputate the missing expenditure values with the median values through the code chunk below.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>cafe<span class="sc">$</span>revenue <span class="ot">&lt;-</span> cafe<span class="sc">$</span>revenue <span class="sc">%&gt;%</span> <span class="fu">replace_na</span>(<span class="fu">median</span>(cafe<span class="sc">$</span>revenue,<span class="at">na.rm=</span><span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="alert alert-block alert-success">
+<p>✅ We have successfully performed data imputation and removed all missing values by replacing them with median values of each variable. As a result, the data can be considered <b> clean </b>. ✅</p>
+</div>
+</section>
 </section>
 </section>
 
