@@ -1,17 +1,63 @@
 ---
 title: "Q3"
-author: "YOUR NAME HERE"
+author: "Arindom Baruah (32779267)"
+execute: 
+  echo: true
+  message: false
+  warning: false
 format: html
 ---
 
-## Exercise 3
 
-Download the `numbats` data from [Tidy Tuesday](https://github.com/rfordatascience/tidytuesday/blob/master/data/2023/2023-03-07/readme.md), following the instructions on the website.
 
-a. Filter the data to be sightings after 2010.
-b. Count the number of sightings for each day.
-c. Make a stem-and-leaf of the sightings. Describe the shape. 
-d. If you were to transform the data to symmetrise, what function would you recommend? Explain why or why not this would be recommended for this variable.
-e. Following Tukey's EDA, identify which observation would be the median, Q1, Q3, and thus report the five-number-summary. Which statistic does Tukey refer to as the hinge?
-f. Compute the step, inner fence, outer fence. Make a Tukey-style schematic plot, hand-drawn. Which observations would be considered to be outliers?
-g. Use R to make a default boxplot. Which observations would be considered to be outliers? Why or why not is this a reasonable set of outliers? 
+```{r load-library}
+#| echo: false
+library(kableExtra)
+library(tidyverse)
+library(here)
+library(visdat)
+library(lubridate)
+library(plotly)
+```
+
+```{r load-data}
+
+df_numbats <- read_csv("data/numbats.csv")
+
+```
+# Filter relevant data
+
+In this section, we will filter our data in a manner such that we can focus on the sightings of Numbats across Australia from the years after 2010.
+
+```{r}
+df_numbats <- df_numbats %>% filter(year(eventDate) > 2010 )
+```
+
+# Count of daily sightings
+
+The number of Numbat sightings for each event date are calculated through the code chunk below.
+
+```{r}
+df_numbats_daily <- df_numbats %>% group_by(eventDate) %>% summarise(daily_sightings = n())
+```
+
+Let us now visualise this data through a histogram as illustrated by @fig-hist
+
+```{r}
+#| label: fig-hist
+#| fig-cap: "Histogram of daily sights of Numbats across Australia"
+
+pl1 <- ggplot(data = df_numbats_daily,aes(x = daily_sightings)) + geom_histogram(fill = 'cornsilk',color = 'black') + labs(x = "Number of sightings per day",y = "Frequency of observations") + theme_classic()
+pl1
+```
+<div class="alert alert-block alert-success">
+💡 We can observe that majority of the daily sightings are around one per day. The distribution is right skewed with very daily sightings above 5 per day. 💡 </div>
+
+While @fig-hist helped us visualise the data, we can obtain a similar distribution of the data using [stem and leaf plot](https://en.wikipedia.org/wiki/Stem-and-leaf_display). Let us create this visualisation using the stem function in R.
+
+```{r}
+stem(df_numbats_daily$daily_sightings)
+```
+
+<div class="alert alert-block alert-warning">
+💡 As we can observe through the above visualisation, the stem and leaf plot illustrates a very similar understanding of the distribution of the data as the histogram plot. The stem leaf plot was able to capture the fact that majority of the observations were below 5 sightings per day and <strong> a right skew in the data </strong> could be observed. 💡 </div>
