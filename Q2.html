@@ -457,6 +457,18 @@ $ source  &lt;chr&gt; "BOSM", "BOSM", "NOAE", "NOAE", "NOAE", "NOAE", "NOAE", "B
 <p>✅ We have successfully performed data imputation and removed all missing values by replacing them with median values of each variable. As a result, the data can be considered <b> clean </b>. ✅</p>
 </div>
 </section>
+<section id="source-of-weather" class="level3" data-number="3.2.4">
+<h3 data-number="3.2.4" class="anchored" data-anchor-id="source-of-weather"><span class="header-section-number">3.2.4</span> Source of weather</h3>
+<p>The reporting source of the weather data is mentioned in the “Data” variable. Ideally, <strong>the source of the data should be consistent throughout the dataset</strong>. However, we can observe that the weather data is based on three different sources as illustrated below.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(cafe<span class="sc">$</span>source)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+B0SM BOSM NOAE 
+   1   25   65 </code></pre>
+</div>
+</div>
+</section>
 </section>
 </section>
 <section id="conclusion" class="level1" data-number="4">
@@ -474,6 +486,7 @@ $ source  &lt;chr&gt; "BOSM", "BOSM", "NOAE", "NOAE", "NOAE", "NOAE", "NOAE", "B
 <li>The weekday variable was obtained from the date of observation using the lubridate package to prevent presence of any incorrect data entries.</li>
 <li>Data cleaning operations were conducted by checking for the presence of missing values.</li>
 <li>Based on the distribution of each variable, data imputation was conducted to treat the missing values.</li>
+<li>Data source was checked for consistency and was observed to be inconsistent pertaining to the source of weather data.</li>
 </ol>
 <p></p>
 <p style="margin-bottom:1em; margin-right:1em; text-align:right; font-family:Georgia">

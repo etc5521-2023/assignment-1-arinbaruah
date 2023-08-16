@@ -292,6 +292,18 @@ cafe$revenue <- cafe$revenue %>% replace_na(median(cafe$revenue,na.rm=TRUE))
 ✅  We have successfully performed data imputation and removed all missing values by replacing them with median values of each variable. As a result, the data can be considered <b> clean </b>. ✅
 </div>
 
+### Source of weather
+
+The reporting source of the weather data is mentioned in the "Data" variable. Ideally, __the source of the data should be consistent throughout the dataset__. However, we can observe that the weather data is based on three different sources as illustrated below.
+
+```{r}
+table(cafe$source)
+```
+
+
+
+
+
 
 # Conclusion
 
@@ -309,6 +321,7 @@ The following key steps were performed as a part of initial data analysis :
 3. The weekday variable was obtained from the date of observation using the lubridate package to prevent presence of any incorrect data entries.
 4. Data cleaning operations were conducted by checking for the presence of missing values.
 5. Based on the distribution of each variable, data imputation was conducted to treat the missing values.
+6. Data source was checked for consistency and was observed to be inconsistent pertaining to the source of weather data.
 
 </p>
 <p style='margin-bottom:1em; margin-right:1em; text-align:right; font-family:Georgia'> </b> <i></i>
