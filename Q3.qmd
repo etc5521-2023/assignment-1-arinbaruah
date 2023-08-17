@@ -41,6 +41,9 @@ The number of Numbat sightings for each event date are calculated through the co
 df_numbats_daily <- df_numbats %>% group_by(eventDate) %>% summarise(daily_sightings = n())
 ```
 
+
+# Visualisation of daily sightings
+
 Let us now visualise this data through a histogram as illustrated by @fig-hist
 
 ```{r}
@@ -61,3 +64,50 @@ stem(df_numbats_daily$daily_sightings)
 
 <div class="alert alert-block alert-warning">
 💡 As we can observe through the above visualisation, the stem and leaf plot illustrates a very similar understanding of the distribution of the data as the histogram plot. The stem leaf plot was able to capture the fact that majority of the observations were below 5 sightings per day and <strong> a right skew in the data </strong> could be observed. 💡 </div>
+
+
+# Five number summaries based on Tukey's EDA
+
+Tukey's EDA is based on the following 5 number summaries:
+
+- Minimum value 
+- Lower hinge 
+- Median value  
+- Upper hinge
+- Maximum value
+
+```{r}
+#| label: tbl-fivnum
+#| tbl-cap: "Five number summary based on Tukey's EDA" 
+
+table <- tibble()
+table <- tibble("Minimum value" = min(df_numbats_daily$daily_sightings),
+                "Lower hinge" = quantile(df_numbats_daily$daily_sightings,0.25),
+                "Median" = median(df_numbats_daily$daily_sightings),
+                "Upper hinge" = quantile(df_numbats_daily$daily_sightings,0.75),
+                "Maximum" = max(df_numbats_daily$daily_sightings))
+table %>% kable()
+```
+
+@tbl-fivnum illustrates the five number summaries for the daily sightings of Numbats around Australia.
+
+<div class="alert alert-block alert-success">
+💡 The lower and upper hinge in Tukey's EDA correspond to the <b> 1st quartile (25th percentile) and 3rd quartile (75th percentile) </b> observations respectively. 💡 </div>
+
+
+# Boxplot of daily sightings
+
+Let us try to visualise the observations of daily sightings through a boxplot as illustrated by @fig-box
+
+```{r}
+#| label: fig-box
+#| fig-cap: "Boxplot distribution of daily sightings"
+
+pl4 <- ggplot(data = df_numbats_daily,aes(y = daily_sightings),color = 'black') + geom_boxplot() + labs(y = "Daily sightings") + theme_classic()
+pl4
+```
+
+@fig-box illustrates a boxplot with the distribution of daily sightings of Numbats across Australia. We can observe a total of 4 outlier values which are illustrated as point observations in the boxplot. These are __those observations which are greater than the upper whisker__. The upper whisker is calculated as below.
+
+$$\boxed{Upper Whisker = (1.5 * IQR) + Q3}$$
+Based on the distribution of the histogram in @fig-hist and the stem plot, we can observe that the number of sightings which are above 5 per day are extremely low. This has been corroborated by the boxplot in @fig-box. As a result, we can conclude that the singular points marked in the boxplot are __reasonably marked as outliers based on the upper whisker value as calculated above__.

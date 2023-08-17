@@ -69,6 +69,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="Q3_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="Q3_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -117,6 +119,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df_numbats_daily <span class="ot">&lt;-</span> df_numbats <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(eventDate) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">daily_sightings =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
+<section id="visualisation-of-daily-sightings" class="level1">
+<h1>Visualisation of daily sightings</h1>
 <p>Let us now visualise this data through a histogram as illustrated by <a href="#fig-hist">Figure&nbsp;1</a></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>pl1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> df_numbats_daily,<span class="fu">aes</span>(<span class="at">x =</span> daily_sightings)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">'cornsilk'</span>,<span class="at">color =</span> <span class="st">'black'</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Number of sightings per day"</span>,<span class="at">y =</span> <span class="st">"Frequency of observations"</span>) <span class="sc">+</span> <span class="fu">theme_classic</span>()</span>
@@ -158,6 +163,76 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="alert alert-block alert-warning">
 💡 As we can observe through the above visualisation, the stem and leaf plot illustrates a very similar understanding of the distribution of the data as the histogram plot. The stem leaf plot was able to capture the fact that majority of the observations were below 5 sightings per day and <strong> a right skew in the data </strong> could be observed. 💡
 </div>
+</section>
+<section id="five-number-summaries-based-on-tukeys-eda" class="level1">
+<h1>Five number summaries based on Tukey’s EDA</h1>
+<p>Tukey’s EDA is based on the following 5 number summaries:</p>
+<ul>
+<li>Minimum value</li>
+<li>Lower hinge</li>
+<li>Median value<br>
+</li>
+<li>Upper hinge</li>
+<li>Maximum value</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>table <span class="ot">&lt;-</span> <span class="fu">tibble</span>()</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>table <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="st">"Minimum value"</span> <span class="ot">=</span> <span class="fu">min</span>(df_numbats_daily<span class="sc">$</span>daily_sightings),</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>                <span class="st">"Lower hinge"</span> <span class="ot">=</span> <span class="fu">quantile</span>(df_numbats_daily<span class="sc">$</span>daily_sightings,<span class="fl">0.25</span>),</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>                <span class="st">"Median"</span> <span class="ot">=</span> <span class="fu">median</span>(df_numbats_daily<span class="sc">$</span>daily_sightings),</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>                <span class="st">"Upper hinge"</span> <span class="ot">=</span> <span class="fu">quantile</span>(df_numbats_daily<span class="sc">$</span>daily_sightings,<span class="fl">0.75</span>),</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>                <span class="st">"Maximum"</span> <span class="ot">=</span> <span class="fu">max</span>(df_numbats_daily<span class="sc">$</span>daily_sightings))</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>table <span class="sc">%&gt;%</span> <span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="tbl-fivnum" class="anchored">
+<table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<caption>Table&nbsp;1: Five number summary based on Tukey’s EDA</caption>
+<thead>
+<tr class="header">
+<th style="text-align: right;" data-quarto-table-cell-role="th">Minimum value</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Lower hinge</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Median</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Upper hinge</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Maximum</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">13</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+</div>
+</div>
+<p><a href="#tbl-fivnum">Table&nbsp;1</a> illustrates the five number summaries for the daily sightings of Numbats around Australia.</p>
+<div class="alert alert-block alert-success">
+💡 The lower and upper hinge in Tukey’s EDA correspond to the <b> 1st quartile (25th percentile) and 3rd quartile (75th percentile) </b> observations respectively. 💡
+</div>
+</section>
+<section id="boxplot-of-daily-sightings" class="level1">
+<h1>Boxplot of daily sightings</h1>
+<p>Let us try to visualise the observations of daily sightings through a boxplot as illustrated by <a href="#fig-box">Figure&nbsp;2</a></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>pl4 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> df_numbats_daily,<span class="fu">aes</span>(<span class="at">y =</span> daily_sightings),<span class="at">color =</span> <span class="st">'black'</span>) <span class="sc">+</span> <span class="fu">geom_boxplot</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Daily sightings"</span>) <span class="sc">+</span> <span class="fu">theme_classic</span>()</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>pl4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-box" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Q3_files/figure-html/fig-box-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;2: Boxplot distribution of daily sightings</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><a href="#fig-box">Figure&nbsp;2</a> illustrates a boxplot with the distribution of daily sightings of Numbats across Australia. We can observe a total of 4 outlier values which are illustrated as point observations in the boxplot. These are <strong>those observations which are greater than the upper whisker</strong>. The upper whisker is calculated as below.</p>
+<p><span class="math display">\[\boxed{Upper Whisker = (1.5 * IQR) + Q3}\]</span> Based on the distribution of the histogram in <a href="#fig-hist">Figure&nbsp;1</a> and the stem plot, we can observe that the number of sightings which are above 5 per day are extremely low. This has been corroborated by the boxplot in <a href="#fig-box">Figure&nbsp;2</a>. As a result, we can conclude that the singular points marked in the boxplot are <strong>reasonably marked as outliers based on the upper whisker value as calculated above</strong>.</p>
 </section>
 
 </main>
