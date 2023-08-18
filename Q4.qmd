@@ -6,6 +6,8 @@ execute:
   message: false
   warning: false
 format: html
+number-sections: true
+theme: journal
 ---
 
 
@@ -120,7 +122,7 @@ We can make the following important observations with respect to the relation be
 ✈️ </div>
 
 
-# Consistency of pattern
+# Consistency of pattern {#sec-pattern}
 
 <div class="alert alert-block alert-success">
 📈💡
@@ -128,6 +130,36 @@ We can make the following important observations with respect to the relation be
 Upon observing the scatter plot in @fig-deparr, we could observe that the departure and the arrival delays are linearly related to each other. However, we could also observe that the patterns are not consistent throughout all the values of departure delays. The linear relation between the departure and arrival delays __were observed to be weak for delays with less than 400 minutes__ but was observed to be much stronger for delays greater than 400 minutes. This is an additional insight which could be deduced through the scatterplot.
 
 Hence, eventhough the variables of departure and arrival delay are observed to be linearly correlated, however, __departure delays until a certain threshold (upto approximately 400 mins) are observed to be relatively weakly correlated to arrival delays when compared to delays above the threshold__.
+
+📈💡
+</div>
+
+
+# Flights with departure delays of over 8 hours
+
+```{r}
+threshold <- 8*60
+flt_delay <- flights %>% filter(dep_delay > threshold) %>% nrow()
+
+# Flights with departure delays of greater than 8 hours
+```
+
+There are a total of __`r flt_delay`__ number of flights which were observed to report departure delays of greater than 8 hours.
+
+# Flights with departure delays of over 8 hours and arrival delays less than 8 hours
+
+```{r}
+delay_num <- flights %>% 
+  filter(dep_delay > threshold) %>% 
+  filter(arr_delay < threshold) %>% nrow()
+
+# Flights with departure delays greater than 8 houra and arrival delays less than 8 hours
+```
+
+<div class="alert alert-block alert-success">
+📈💡
+
+For the `r flt_delay` flights reporting departure delays of greater than 8 hours, only __`r delay_num`__ reported arrival delays less than 8 hours. This further reiterates our analysis delineated in @sec-pattern where we have observed a strong linear correlation for departure delays greater than 400 minutes (Roughly 8 hours).
 
 📈💡
 </div>

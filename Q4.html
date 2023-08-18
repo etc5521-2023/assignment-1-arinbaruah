@@ -101,8 +101,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="relation-between-arrival-and-departure-delay" class="level1">
-<h1>Relation between arrival and departure delay</h1>
+<section id="relation-between-arrival-and-departure-delay" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Relation between arrival and departure delay</h1>
 <div class="alert alert-block alert-success">
 <p>✈️</p>
 <p>The arrival and departure delays of flights maybe related based on certain factors as explained below:</p>
@@ -115,12 +115,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 ✈️
 </div>
 </section>
-<section id="units-of-delays" class="level1">
-<h1>Units of delays</h1>
+<section id="units-of-delays" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Units of delays</h1>
 <p>Based on the <a href="https://cran.r-project.org/web/packages/nycflights13/nycflights13.pdf">documentation</a> of “nycflights13” package on R, the departure and arrival delays are reported in <strong>minutes</strong>.</p>
 </section>
-<section id="scatterplot-between-arrival-and-departure-delays" class="level1">
-<h1>Scatterplot between arrival and departure delays</h1>
+<section id="scatterplot-between-arrival-and-departure-delays" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Scatterplot between arrival and departure delays</h1>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pl1 <span class="ot">&lt;-</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">data =</span> flights <span class="sc">%&gt;%</span> <span class="fu">drop_na</span>(), <span class="fu">aes</span>(<span class="at">x =</span>  dep_delay, <span class="at">y =</span> arr_delay)) <span class="sc">+</span> </span>
@@ -179,8 +179,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 📈💡
 </div>
 </section>
-<section id="relationship-between-arrival-delay-and-departure-delay-based-on-the-scatter-plot" class="level1">
-<h1>Relationship between arrival delay and departure delay based on the scatter plot</h1>
+<section id="relationship-between-arrival-delay-and-departure-delay-based-on-the-scatter-plot" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Relationship between arrival delay and departure delay based on the scatter plot</h1>
 <p>Based on the plot illustrated through <a href="#fig-deparr">Figure&nbsp;1</a>, we can make the following observation:</p>
 <div class="alert alert-block alert-warning">
 <p>✈️</p>
@@ -193,12 +193,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 ✈️
 </div>
 </section>
-<section id="consistency-of-pattern" class="level1">
-<h1>Consistency of pattern</h1>
+<section id="sec-pattern" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Consistency of pattern</h1>
 <div class="alert alert-block alert-success">
 <p>📈💡</p>
 <p>Upon observing the scatter plot in <a href="#fig-deparr">Figure&nbsp;1</a>, we could observe that the departure and the arrival delays are linearly related to each other. However, we could also observe that the patterns are not consistent throughout all the values of departure delays. The linear relation between the departure and arrival delays <strong>were observed to be weak for delays with less than 400 minutes</strong> but was observed to be much stronger for delays greater than 400 minutes. This is an additional insight which could be deduced through the scatterplot.</p>
 <p>Hence, eventhough the variables of departure and arrival delay are observed to be linearly correlated, however, <strong>departure delays until a certain threshold (upto approximately 400 mins) are observed to be relatively weakly correlated to arrival delays when compared to delays above the threshold</strong>.</p>
+<p>📈💡</p>
+</div>
+</section>
+<section id="flights-with-departure-delays-of-over-8-hours" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Flights with departure delays of over 8 hours</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>threshold <span class="ot">&lt;-</span> <span class="dv">8</span><span class="sc">*</span><span class="dv">60</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>flt_delay <span class="ot">&lt;-</span> flights <span class="sc">%&gt;%</span> <span class="fu">filter</span>(dep_delay <span class="sc">&gt;</span> threshold) <span class="sc">%&gt;%</span> <span class="fu">nrow</span>()</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Flights with departure delays of greater than 8 hours</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>There are a total of <strong>67</strong> number of flights which were observed to report departure delays of greater than 8 hours.</p>
+</section>
+<section id="flights-with-departure-delays-of-over-8-hours-and-arrival-delays-less-than-8-hours" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Flights with departure delays of over 8 hours and arrival delays less than 8 hours</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>delay_num <span class="ot">&lt;-</span> flights <span class="sc">%&gt;%</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(dep_delay <span class="sc">&gt;</span> threshold) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(arr_delay <span class="sc">&lt;</span> threshold) <span class="sc">%&gt;%</span> <span class="fu">nrow</span>()</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Flights with departure delays greater than 8 houra and arrival delays less than 8 hours</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="alert alert-block alert-success">
+<p>📈💡</p>
+<p>For the 67 flights reporting departure delays of greater than 8 hours, only <strong>5</strong> reported arrival delays less than 8 hours. This further reiterates our analysis delineated in <a href="#sec-pattern">Section&nbsp;5</a> where we have observed a strong linear correlation for departure delays greater than 400 minutes (Roughly 8 hours).</p>
 <p>📈💡</p>
 </div>
 </section>
