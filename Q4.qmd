@@ -44,8 +44,12 @@ In conclusion, based on preliminary assessment of the data, the flight arrival a
 
 # Units of delays
 
+<div class="alert alert-block alert-warning">
+📈💡
+
 Based on the [documentation](https://cran.r-project.org/web/packages/nycflights13/nycflights13.pdf) of "nycflights13" package on R, the departure and arrival delays are reported in __minutes__.
 
+</div>
 
 # Scatterplot between arrival and departure delays
 
@@ -106,7 +110,7 @@ We have plotted the variable dep_delay (Departure delay) on the horizontal X-axi
 
 
 
-# Relationship between arrival delay and departure delay based on the scatter plot
+# Relationship between arrival delay and departure delay based on the scatter plot {#sec-rel}
 
 Based on the plot illustrated through @fig-deparr, we can make the following observation:
 
@@ -135,25 +139,27 @@ Hence, eventhough the variables of departure and arrival delay are observed to b
 </div>
 
 
-# Flights with departure delays of over 8 hours
+# Flights with departure delays of over 8 hours {#sec-del}
 
 ```{r}
-threshold <- 8*60
+threshold <- 8*60 # Converting hours to minutes
 flt_delay <- flights %>% filter(dep_delay > threshold) %>% nrow()
 
 # Flights with departure delays of greater than 8 hours
 ```
 
+<div class="alert alert-block alert-warning">
 There are a total of __`r flt_delay`__ number of flights which were observed to report departure delays of greater than 8 hours.
+</div>
 
-# Flights with departure delays of over 8 hours and arrival delays less than 8 hours
+# Flights with departure delays of over 8 hours and arrival delays less than 8 hours {#sec-arrdel}
 
 ```{r}
 delay_num <- flights %>% 
   filter(dep_delay > threshold) %>% 
   filter(arr_delay < threshold) %>% nrow()
 
-# Flights with departure delays greater than 8 houra and arrival delays less than 8 hours
+# Flights with departure delays greater than 8 hours and arrival delays less than 8 hours
 ```
 
 <div class="alert alert-block alert-success">
@@ -162,4 +168,14 @@ delay_num <- flights %>%
 For the `r flt_delay` flights reporting departure delays of greater than 8 hours, only __`r delay_num`__ reported arrival delays less than 8 hours. This further reiterates our analysis delineated in @sec-pattern where we have observed a strong linear correlation for departure delays greater than 400 minutes (Roughly 8 hours).
 
 📈💡
+</div>
+
+# Does the above analysis mean that it is typical for flights that are delayed on departure to catch up time during the flight ?
+
+<div class="alert alert-block alert-success">
+📈✈️⚠️
+
+Based on the analysis in @sec-rel,@sec-pattern and @sec-del, we have observed that there is very __little evidence__ to suggest that flights with departure delays catch up time during the flight to arrive on time. For flights with __high departure delays, there is a strong linear relationship which suggests that they will be equally delayed on arrival__. For flights with __shorter departure delay times, there is a relatively weaker linear relationship with higher on-arrival delay times expected.__
+
+📈✈️⚠️
 </div>
