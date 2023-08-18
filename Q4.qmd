@@ -95,12 +95,21 @@ pl1
 ```
 @fig-deparr visualises the departure and arrival delays through a scatter plot.
 
+<div class="alert alert-block alert-warning">
+📈💡
+
+We have plotted the variable dep_delay (Departure delay) on the horizontal X-axis as it __aids the intuition of the plot__. In general, departure delays often mark the start of a flight delay. A high departure delay could inevitably lead to a high arrival delay of the flight. As a result, we have considered __the departure delay as the independent variable while observing arrival delay as the dependent variable.__ Such analysis is often better observed by placing the independent variable on the X-axis and analysing whether a strong relation can be observed on the Y-axis for the corresponding values of the X-axis.
+
+📈💡  </div>
+
+
+
 # Relationship between arrival delay and departure delay based on the scatter plot
 
 Based on the plot illustrated through @fig-deparr, we can make the following observation:
 
 <div class="alert alert-block alert-warning">
-✈️ 
+✈️
 
 We can make the following important observations with respect to the relation between departure and arrival delays:
 
@@ -109,3 +118,5 @@ We can make the following important observations with respect to the relation be
 3. On the other hand, for departure and arrival delays above 400 minutes, there appears to be a <b> strong linear correlation </b>. 
 
 ✈️ </div>
+
+
