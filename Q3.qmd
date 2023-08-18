@@ -80,13 +80,13 @@ Tukey's EDA is based on the following 5 number summaries:
 #| label: tbl-fivnum
 #| tbl-cap: "Five number summary based on Tukey's EDA" 
 
-table <- tibble()
-table <- tibble("Minimum value" = min(df_numbats_daily$daily_sightings),
+table1 <- tibble()
+table1 <- tibble("Minimum value" = min(df_numbats_daily$daily_sightings),
                 "Lower hinge" = quantile(df_numbats_daily$daily_sightings,0.25),
                 "Median" = median(df_numbats_daily$daily_sightings),
                 "Upper hinge" = quantile(df_numbats_daily$daily_sightings,0.75),
                 "Maximum" = max(df_numbats_daily$daily_sightings))
-table %>% kable()
+table1 %>% kable()
 ```
 
 @tbl-fivnum illustrates the five number summaries for the daily sightings of Numbats around Australia.
@@ -94,6 +94,30 @@ table %>% kable()
 <div class="alert alert-block alert-success">
 💡 The lower and upper hinge in Tukey's EDA correspond to the <b> 1st quartile (25th percentile) and 3rd quartile (75th percentile) </b> observations respectively. 💡 </div>
 
+# Step, Inner and Outer fence calculation
+
+Based on [Tukey's EDA](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1332871/), following are the salient definitions:
+
+1. __Step__: Step is dependent on the Inter Quartile Range (IQR) and is calculated as __1.5 times the IQR__.
+2. __Inner Fence__: 1 step outside the hinges (Q1 or Q3). The inner fence generally classifies the __mild outliers__ just around the edge of the whiskers of the boxplot.
+3. __Outer Fence__: 2 steps outside the hinges (Q1 or Q3). The outer fences generally classify the __extreme outliers__ which are considerably away from the whiskers of the boxplot.
+
+The calculated values for the daily sightings are tabulated in @tbl-stepfence.
+
+```{r}
+#| label: tbl-stepfence
+#| tbl-cap: "Calculated values of steps and fences"
+table2 <- tibble("Step" = 1.5*IQR(df_numbats_daily$daily_sightings),
+                "Inner fence" = quantile(df_numbats_daily$daily_sightings,0.75) + 1.5*IQR(df_numbats_daily$daily_sightings),
+                "Outer fence" = quantile(df_numbats_daily$daily_sightings,0.75) + 1.5*IQR(df_numbats_daily$daily_sightings) * 2)
+table2 %>% kable()
+```
+
+
+
+![Tukey's hand-drawn EDA](tukey_eda.jpeg){#fig-tukeda}
+
+@fig-tukeda illustrates a boxplot based on key values calculated in @tbl-fivnum and @tbl-stepfence.
 
 # Boxplot of daily sightings
 
