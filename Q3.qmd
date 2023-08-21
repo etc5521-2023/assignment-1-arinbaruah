@@ -65,6 +65,24 @@ stem(df_numbats_daily$daily_sightings)
 <div class="alert alert-block alert-warning">
 💡 As we can observe through the above visualisation, the stem and leaf plot illustrates a very similar understanding of the distribution of the data as the histogram plot. The stem leaf plot was able to capture the fact that majority of the observations were below 5 sightings per day and <strong> a right skew in the data </strong> could be observed. 💡 </div>
 
+# Data transformation
+
+```{r}
+#| label: fig-transform
+#| fig-cap: "Number of daily sightings after transformation to symmetrise the data"
+
+pl2 <- ggplot(data = df_numbats_daily, 
+              aes(x = daily_sightings ^ -2)) + 
+  geom_histogram(fill ='lightgreen', color = 'black') + 
+  theme_classic() + labs(y = 'Number of observations') + ggtitle("Number of daily sightings \n after transformation") + theme(plot.title = element_text(hjust=0.5))
+pl2
+```
+
+<div class="alert alert-block alert-success">
+💡 Upon applying the __reciprocal transformation on the square of the daily sightings per day__ across Australia, we were able to symmetrise the data to some extent.
+While working with symmetric distributions such as the Gaussian distribution is ideal for gaining critical insights through visualisations, however, as observed through @fig-transform, the symmetrisation could not be adequately performed, partially due to lack of data. Furthermore, utilisation of transformations for the daily sightings data __lead to decrease in intuition of the data and its corresponding visualisation as it is no longer easily understandable on how the data can be comprehended__.
+💡 </div>
+
 
 # Five number summaries based on Tukey's EDA
 
