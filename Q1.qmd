@@ -38,11 +38,6 @@ ceo <- tt$departures
 
 
 
-```{r load-local-data,message=FALSE,warning=FALSE}
-ceo <- read_csv("departures.csv")
-```
-
-
 The data for CEO departures has been sourced from the [Tidy Tuesday](https://github.com/rfordatascience/tidytuesday) library. The analysis will be re-run and each section will be classified into one of the following types of analysis:
 
 1. Initial Data Analysis ⚠️:
@@ -63,7 +58,7 @@ The above plot allows us to understand the various types of datatypes in each of
 
 
 <div class="alert alert-info">
-  ⚠️ Such a type of analysis allows us to understand the distribution of missing values, and the types of datatypes present in the dataset, further laying the path for the data pre-processing techniques to be used in later part of the analysis. Hence, we can classify such an analysis as <b> Initial Data Analysis </b>. ⚠️.
+  ⚠️ Such a type of analysis allows us to understand the distribution of missing values, and the types of datatypes present in the dataset, further laying the path for the data pre-processing techniques to be used in later part of the analysis. Hence, we can classify such an analysis as <b> Initial Data Analysis (IDA) </b>. ⚠️.
 </div>
 
 # Develop research questions and hypotheses
@@ -78,7 +73,7 @@ The following research questions were posed for the current dataset.
 
 
 <div class="alert alert-info">
-  🎯 Setting up specific research questions and addressing key strategies to answer such questions generally forms a part of the <b> confirmatory data analysis </b>. 🎯
+  🎯 Setting up specific research questions and addressing key strategies to answer such questions generally forms a part of the <b> Initial Data Analysis (IDA) </b>. 🎯
 </div>
 
 
@@ -141,7 +136,7 @@ ceo_reduced <- ceo %>%
 
 
 <div class="alert alert-info">
-  ⚠️ Until this section, the code chunks majorly dealt with gaining more information from the raw data through data pre-processing. Such activities generally constitute an integral part of <b> initial data analysis </b> . ⚠️  .
+  ⚠️ Until this section, the code chunks majorly dealt with gaining more information from the raw data through data pre-processing. Such activities generally constitute an integral part of <b> Initial Data Analysis (IDA) </b> . ⚠️  .
 </div>
 
 
@@ -165,6 +160,11 @@ ceo_reduced %>%
    ) + 
    scale_x_continuous(breaks = scales::breaks_width(500))
 ```
+
+<div class="alert alert-info">
+💡 In this section, the bar graph visualisation helps us gain some important insights. Understanding the patterns and uncovering key understandings through the visualisations constitute an integral part of <b> Exploratory Data Analysis (EDA) </b> . 💡 
+</div>
+
 
 # Reason for departure over time
 
@@ -212,10 +212,9 @@ ceo_reduced %>%
       )
 ```
 
-Based on 
 
 <div class="alert alert-info">
-  📈 In this section, we observe the use of plots to gain deeper insights for understanding the reasons for departure. The use of lineplots and the subsequent feature engineering done to create the proportion of departures are integral steps done in <b> exploratory data analysis </b> .📊 
+  📈 In this section, we observe the use of plots to gain deeper insights for understanding the reasons for departure. The use of lineplots and the subsequent feature engineering done to create the proportion of departures are integral steps done in <b> Exploratory Data Analysis (EDA) </b> .📊 
 </div>
 
 # Trajectories
@@ -237,6 +236,11 @@ length(unique(ceo_al_twice$exec_fullname))
 ```{r}
 table(ceo_al_twice$appears_al_twice) / c(2, 3, 4)
 ```
+
+<div class="alert alert-warning">
+  ⚠️ In the above code chunk, a table has been created with the headings of 2,3 and 4 total observations. However, __if we have more than 4 departures (in the event of an updated data observation),the calculation will no longer be reproducible and accurate__. ⚠️.
+</div>
+
 
 ```{r}
 ceo_changes <- ceo_al_twice %>% 
@@ -261,7 +265,7 @@ ggplot(ceo_changes, aes(x = departure_no, y = departure_label, group = exec_full
 The above plot is a point plot which is used mainly for two sets of categorical axes. Since the above point plot is hard to understand by itself, hence, specific modifications are done in the next step to gain further insights.
 
 <div class="alert alert-info">
-  📈 Usage of various plots such as the point plot in this case forms a part of <b> exploratory data analysis </b>.📊 
+  📈 Usage of various plots such as the point plot in this case forms a part of <b> Exploratory Data Analysis (EDA) </b>.📊 
 </div>
 
 
@@ -305,7 +309,7 @@ As per the analysis from the above plot, we are able to draw specific inferences
 
 
 <div class="alert alert-info">
-  🎯 As we can observe, we are able to confirm clear inferences from the plots visualised. Being able make claims based on data,statistical treatments, and plots form an integral section of <b> confirmatory data analysis </b>. 🎯
+  🎯 As we can observe, we are able to confirm clear inferences from the plots visualised. Being able make claims based on data,statistical treatments, and plots form an integral section of <b> Confirmatory Data Analysis (CDA) </b>. 🎯
 </div>
 
 

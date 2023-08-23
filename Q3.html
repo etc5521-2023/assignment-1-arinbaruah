@@ -110,14 +110,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>Filter relevant data</h1>
 <p>In this section, we will filter our data in a manner such that we can focus on the sightings of Numbats across Australia from the years after 2010.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df_numbats <span class="ot">&lt;-</span> df_numbats <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">year</span>(eventDate) <span class="sc">&gt;</span> <span class="dv">2010</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df_numbats <span class="ot">&lt;-</span> df_numbats <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">year</span>(day) <span class="sc">&gt;</span> <span class="dv">2010</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="count-of-daily-sightings" class="level1">
 <h1>Count of daily sightings</h1>
 <p>The number of Numbat sightings for each event date are calculated through the code chunk below.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df_numbats_daily <span class="ot">&lt;-</span> df_numbats <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(eventDate) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">daily_sightings =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df_numbats_daily <span class="ot">&lt;-</span> df_numbats <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(day) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">daily_sightings =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="visualisation-of-daily-sightings" class="level1">
@@ -145,8 +145,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>
   The decimal point is at the |
 
-   1 | 00000000000000000000000000000000000000000000000000000000000000000000+24
-   2 | 000000000000000000000000000000000000000000000000000
+   1 | 00000000000000000000000000000000000000000000000000000000000000000000+6
+   2 | 000000000000000000000000000000000000000000000000000000000000
    3 | 00000000000000000000000
    4 | 00000000000
    5 | 000000000

@@ -30,7 +30,7 @@ df_numbats <- read_csv("data/numbats.csv")
 In this section, we will filter our data in a manner such that we can focus on the sightings of Numbats across Australia from the years after 2010.
 
 ```{r}
-df_numbats <- df_numbats %>% filter(year(eventDate) > 2010 )
+df_numbats <- df_numbats %>% filter(year(day) > 2010 )
 ```
 
 # Count of daily sightings
@@ -38,7 +38,7 @@ df_numbats <- df_numbats %>% filter(year(eventDate) > 2010 )
 The number of Numbat sightings for each event date are calculated through the code chunk below.
 
 ```{r}
-df_numbats_daily <- df_numbats %>% group_by(eventDate) %>% summarise(daily_sightings = n())
+df_numbats_daily <- df_numbats %>% group_by(day) %>% summarise(daily_sightings = n())
 ```
 
 
