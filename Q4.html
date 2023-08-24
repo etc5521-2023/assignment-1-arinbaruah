@@ -222,13 +222,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>delay_num <span class="ot">&lt;-</span> flights <span class="sc">%&gt;%</span> </span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(dep_delay <span class="sc">&gt;</span> threshold) <span class="sc">%&gt;%</span> </span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(arr_delay <span class="sc">&lt;</span> threshold) <span class="sc">%&gt;%</span> <span class="fu">nrow</span>()</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(arr_delay <span class="sc">&lt;</span> dep_delay) <span class="sc">%&gt;%</span> <span class="fu">nrow</span>()</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Flights with departure delays greater than 8 hours and arrival delays less than 8 hours</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Flights with departure delays greater than 8 hours and arrival delays less than departure delays</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="alert alert-block alert-success">
 <p>📈💡</p>
-<p>For the 67 flights reporting departure delays of greater than 8 hours, only <strong>5</strong> reported arrival delays less than 8 hours. This further reiterates our analysis delineated in <a href="#sec-pattern">Section&nbsp;5</a> where we have observed a strong linear correlation for departure delays greater than 400 minutes (Roughly 8 hours).</p>
+<p>For the 67 flights reporting departure delays of greater than 8 hours, <strong>51</strong> reported arrival delays less than their corresponding departure delays.</p>
 <p>📈💡</p>
 </div>
 </section>
@@ -236,7 +236,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1 data-number="8"><span class="header-section-number">8</span> Does the above analysis mean that it is typical for flights that are delayed on departure to catch up time during the flight ?</h1>
 <div class="alert alert-block alert-success">
 <p>📈✈️⚠️</p>
-<p>Based on the analysis in <a href="#sec-rel">Section&nbsp;4</a>,<a href="#sec-pattern">Section&nbsp;5</a> and <a href="#sec-del">Section&nbsp;6</a>, we have observed that there is very <strong>little evidence</strong> to suggest that flights with departure delays catch up time during the flight to arrive on time. For flights with <strong>high departure delays, there is a strong linear relationship which suggests that they will be equally delayed on arrival</strong>. For flights with <strong>shorter departure delay times, there is a relatively weaker linear relationship with higher on-arrival delay times expected.</strong></p>
+<p>Based on the analysis in <a href="#sec-rel">Section&nbsp;4</a>,<a href="#sec-pattern">Section&nbsp;5</a> and <a href="#sec-del">Section&nbsp;6</a>, we have observed that there is a <strong>strong evidence</strong> to suggest that flights with departure delays greater than 8 hours catch up time during the flight to arrive with lower corresponding arrival delays. For flights with <strong>high departure delays, there is a strong linear relationship which suggests that they will be equally delayed or just less than their corresponding departure delay on arrival</strong>. For flights with <strong>shorter departure delay times, there is a relatively weaker linear relationship with higher on-arrival delay times expected.</strong></p>
 <p>📈✈️⚠️</p>
 </div>
 </section>

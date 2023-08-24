@@ -157,15 +157,15 @@ There are a total of __`r flt_delay`__ number of flights which were observed to 
 ```{r}
 delay_num <- flights %>% 
   filter(dep_delay > threshold) %>% 
-  filter(arr_delay < threshold) %>% nrow()
+  filter(arr_delay < dep_delay) %>% nrow()
 
-# Flights with departure delays greater than 8 hours and arrival delays less than 8 hours
+# Flights with departure delays greater than 8 hours and arrival delays less than departure delays
 ```
 
 <div class="alert alert-block alert-success">
 📈💡
 
-For the `r flt_delay` flights reporting departure delays of greater than 8 hours, only __`r delay_num`__ reported arrival delays less than 8 hours. This further reiterates our analysis delineated in @sec-pattern where we have observed a strong linear correlation for departure delays greater than 400 minutes (Roughly 8 hours).
+For the `r flt_delay` flights reporting departure delays of greater than 8 hours, __`r delay_num`__ reported arrival delays less than their corresponding departure delays. 
 
 📈💡
 </div>
@@ -175,7 +175,7 @@ For the `r flt_delay` flights reporting departure delays of greater than 8 hours
 <div class="alert alert-block alert-success">
 📈✈️⚠️
 
-Based on the analysis in @sec-rel,@sec-pattern and @sec-del, we have observed that there is very __little evidence__ to suggest that flights with departure delays catch up time during the flight to arrive on time. For flights with __high departure delays, there is a strong linear relationship which suggests that they will be equally delayed on arrival__. For flights with __shorter departure delay times, there is a relatively weaker linear relationship with higher on-arrival delay times expected.__
+Based on the analysis in @sec-rel,@sec-pattern and @sec-del, we have observed that there is a __strong evidence__ to suggest that flights with departure delays greater than 8 hours catch up time during the flight to arrive with lower corresponding arrival delays. For flights with __high departure delays, there is a strong linear relationship which suggests that they will be equally delayed or just less than their corresponding departure delay on arrival__. For flights with __shorter departure delay times, there is a relatively weaker linear relationship with higher on-arrival delay times expected.__
 
 📈✈️⚠️
 </div>
