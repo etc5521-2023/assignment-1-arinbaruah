@@ -101,9 +101,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="exercise-1" class="level2">
-<h2 class="anchored" data-anchor-id="exercise-1">Exercise 1</h2>
-<p>The <a href="https://www.manuel-rademaker.com/blog/tidy_tuesday/2021_05_15_ceo_depatures/">blog post by Manuel Rademaker</a> describes a neat analysis of the <a href="https://github.com/rfordatascience/tidytuesday">Tidy Tuesday</a> data on CEO departures. Re-run this analysis for yourself. Report any problems reproducing the results. Your primary task for this exercise is to outline all of the parts of the analysis, and label them as EDA, IDA or confirmatory analysis.</p>
+<p>The <a href="https://www.manuel-rademaker.com/blog/tidy_tuesday/2021_05_15_ceo_depatures/">blog post by Manuel Rademaker</a> describes a neat analysis of the <a href="https://github.com/rfordatascience/tidytuesday">Tidy Tuesday</a> data on CEO departures. Re-run this analysis for yourself. Report any problems reproducing the results. Our primary task for this exercise is to outline all of the parts of the analysis, and label them as EDA, IDA or confirmatory analysis.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">echo =</span> <span class="cn">TRUE</span>,</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>                      <span class="at">message =</span> <span class="cn">FALSE</span>,</span>
@@ -132,9 +130,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Exploratory Data Analysis 📊:</li>
 <li>Confirmatory Data Analysis 🎯:</li>
 </ol>
-</section>
-<section id="visualising-the-various-datatypes-in-each-variable" class="level1">
-<h1>Visualising the various datatypes in each variable</h1>
+<section id="visualising-the-various-datatypes-in-each-variable" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Visualising the various datatypes in each variable</h1>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(ceo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -155,8 +152,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>⚠️ Such a type of analysis allows us to understand the distribution of missing values, and the types of datatypes present in the dataset, further laying the path for the data pre-processing techniques to be used in later part of the analysis. Hence, we can classify such an analysis as <b> Initial Data Analysis (IDA) </b>. ⚠️.</p>
 </div>
 </section>
-<section id="develop-research-questions-and-hypotheses" class="level1">
-<h1>Develop research questions and hypotheses</h1>
+<section id="develop-research-questions-and-hypotheses" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Develop research questions and hypotheses</h1>
 <p>The following research questions were posed for the current dataset.</p>
 <ol type="1">
 <li>What is the distribution of CEO departure reasons (by year (or every 5 years), overall)?</li>
@@ -169,8 +166,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>🎯 Setting up specific research questions and addressing key strategies to answer such questions generally forms a part of <b> Confirmatory Data Analysis (CDA) </b>. 🎯</p>
 </div>
 </section>
-<section id="reason-for-ceo-departure" class="level1">
-<h1>Reason for CEO departure</h1>
+<section id="reason-for-ceo-departure" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Reason for CEO departure</h1>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(ceo, <span class="fu">aes</span>(<span class="at">y =</span> departure_code)) <span class="sc">+</span> </span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_bar</span>(<span class="at">fill =</span> main_color) <span class="sc">+</span>  <span class="co"># Main_color not defined yet</span></span>
@@ -269,8 +266,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>💡 In this section, the bar graph visualisation helps us gain some important insights. Understanding the patterns and uncovering key understandings through the visualisations constitute an integral part of <b> Exploratory Data Analysis (EDA) </b> . 💡</p>
 </div>
 </section>
-<section id="reason-for-departure-over-time" class="level1">
-<h1>Reason for departure over time</h1>
+<section id="reason-for-departure-over-time" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Reason for departure over time</h1>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>ceo_reduced <span class="sc">%&gt;%</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">group_by</span>(fyear, departure_label) <span class="sc">%&gt;%</span> </span>
@@ -328,8 +325,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>📈 In this section, we observe the use of plots to gain deeper insights for understanding the reasons for departure. The use of lineplots and the subsequent feature engineering done to create the proportion of departures are integral steps done in <b> Exploratory Data Analysis (EDA) </b> .📊</p>
 </div>
 </section>
-<section id="trajectories" class="level1">
-<h1>Trajectories</h1>
+<section id="trajectories" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Trajectories</h1>
 <p>This section focuses specifically on CEOs who appear more than once in the dataset. The following code chunk creates the required variable and visualises the same using a lineplot as follows.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>ceo_al_twice <span class="ot">&lt;-</span> ceo_reduced <span class="sc">%&gt;%</span></span>
@@ -430,6 +427,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="alert alert-info">
 <p>🎯 As we can observe, we are able to confirm clear inferences from the plots visualised. Being able make claims based on data,statistical treatments, and plots form an integral section of <b> Confirmatory Data Analysis (CDA) </b>. 🎯</p>
 </div>
+</section>
+<section id="resources" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Resources</h1>
+<p>The above analysis was undertaken with the help of the following software and packages:</p>
+<ol type="1">
+<li><strong>RStudio</strong>: Integrated Development for R. RStudio, PBC, Boston, MA URL http://www.rstudio.com/.</li>
+<li><strong>ggplot2</strong>: H. Wickham. ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York, 2016.</li>
+<li><strong>tidyverse</strong>: Wickham H, Averick M, Bryan J, Chang W, McGowan LD, François R, Grolemund G, Hayes A, Henry L, Hester J, Kuhn M, Pedersen TL, Miller E, Bache SM, Müller K, Ooms J, Robinson D, Seidel DP, Spinu V, Takahashi K, Vaughan D, Wilke C, Woo K, Yutani H (2019). “Welcome to the tidyverse.” <em>Journal of Open Source Software</em>, <em>4</em>(43), 1686. doi:10.21105/joss.01686 <a href="https://doi.org/10.21105/joss.01686" class="uri">https://doi.org/10.21105/joss.01686</a>.</li>
+<li><strong>knitr</strong>: Yihui Xie (2014) knitr: A Comprehensive Tool for Reproducible Research in R. In Victoria Stodden, Friedrich Leisch and Roger D. Peng, editors, Implementing Reproducible Computational Research. Chapman and Hall/CRC. ISBN 978-1466561595.</li>
+<li><strong>rmarkdown</strong>: Allaire J, Xie Y, Dervieux C, McPherson J, Luraschi J, Ushey K, Atkins A, Wickham H, Cheng J, Chang W, Iannone R (2023). <em>rmarkdown: Dynamic Documents for R</em>. R package version 2.23, <a href="https://github.com/rstudio/rmarkdown" class="uri">https://github.com/rstudio/rmarkdown</a>.</li>
+<li><strong>kableExtra</strong>: Zhu H (2023). <em>kableExtra: Construct Complex Table with ‘kable’ and Pipe Syntax</em>. http://haozhu233.github.io/kableExtra</li>
+<li><strong>visdat</strong>: Tierney N (2017). “visdat: Visualising Whole Data Frames.” <em>JOSS</em>, <em>2</em>(16), 355. doi:10.21105/joss.00355 <a href="https://doi.org/10.21105/joss.00355" class="uri">https://doi.org/10.21105/joss.00355</a>, <a href="http://dx.doi.org/10.21105/joss.00355" class="uri">http://dx.doi.org/10.21105/joss.00355</a>.</li>
+</ol>
 </section>
 
 </main>

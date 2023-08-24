@@ -6,6 +6,8 @@ execute:
   message: false
   warning: false
 format: html
+number-sections: true
+theme: journal
 ---
 
 
@@ -48,7 +50,7 @@ Let us now visualise this data through a histogram as illustrated by @fig-hist
 
 ```{r}
 #| label: fig-hist
-#| fig-cap: "Histogram of daily sights of Numbats across Australia"
+#| fig-cap: "Histogram of daily sightings of Numbats across Australia"
 
 pl1 <- ggplot(data = df_numbats_daily,aes(x = daily_sightings)) + geom_histogram(fill = 'cornsilk',color = 'black') + labs(x = "Number of sightings per day",y = "Frequency of observations") + theme_classic()
 pl1
@@ -63,7 +65,7 @@ stem(df_numbats_daily$daily_sightings)
 ```
 
 <div class="alert alert-block alert-warning">
-💡 As we can observe through the above visualisation, the stem and leaf plot illustrates a very similar understanding of the distribution of the data as the histogram plot. The stem leaf plot was able to capture the fact that majority of the observations were below 5 sightings per day and <strong> a right skew in the data </strong> could be observed. 💡 </div>
+💡 As we can observe through the above visualisation, the stem and leaf plot illustrates a very similar understanding of the distribution of the data as the histogram plot in @fig-hist. The stem leaf plot was able to capture the fact that majority of the observations were below 5 sightings per day and <strong> a right skew in the data </strong> could be observed. 💡 </div>
 
 # Data transformation
 
@@ -152,7 +154,7 @@ pl4
 @fig-box illustrates a boxplot with the distribution of daily sightings of Numbats across Australia. We can observe a total of 4 outlier values which are illustrated as point observations in the boxplot. These are __those observations which are greater than the upper whisker__. The upper whisker is calculated as below.
 
 $$\boxed{Upper Whisker = (1.5 * IQR) + Q3}$$
-Based on the distribution of the histogram in @fig-hist and the stem plot, we can observe that the number of sightings which are above 5 per day are extremely low. This has been corroborated by the boxplot in @fig-box. As a result, we can conclude that the singular points marked in the boxplot are __reasonably marked as outliers based on the upper whisker value as calculated above__.
+Based on the distribution of the histogram in @fig-hist and the stem plot, we can observe that __the number of sightings which are above 5 per day are extremely low__. This has been corroborated by the boxplot in @fig-box. As a result, we can conclude that the singular points marked in the boxplot are __reasonably marked as outliers based on the upper whisker value as calculated above by the default settings of the boxplot__.
 
 # Resources
 

@@ -106,22 +106,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>df_numbats <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/numbats.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="filter-relevant-data" class="level1">
-<h1>Filter relevant data</h1>
+<section id="filter-relevant-data" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Filter relevant data</h1>
 <p>In this section, we will filter our data in a manner such that we can focus on the sightings of Numbats across Australia from the years after 2010.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df_numbats <span class="ot">&lt;-</span> df_numbats <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">year</span>(day) <span class="sc">&gt;</span> <span class="dv">2010</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="count-of-daily-sightings" class="level1">
-<h1>Count of daily sightings</h1>
+<section id="count-of-daily-sightings" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Count of daily sightings</h1>
 <p>The number of Numbat sightings for each event date are calculated through the code chunk below.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df_numbats_daily <span class="ot">&lt;-</span> df_numbats <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(day) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">daily_sightings =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="visualisation-of-daily-sightings" class="level1">
-<h1>Visualisation of daily sightings</h1>
+<section id="visualisation-of-daily-sightings" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Visualisation of daily sightings</h1>
 <p>Let us now visualise this data through a histogram as illustrated by <a href="#fig-hist">Figure&nbsp;1</a></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>pl1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> df_numbats_daily,<span class="fu">aes</span>(<span class="at">x =</span> daily_sightings)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">'cornsilk'</span>,<span class="at">color =</span> <span class="st">'black'</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Number of sightings per day"</span>,<span class="at">y =</span> <span class="st">"Frequency of observations"</span>) <span class="sc">+</span> <span class="fu">theme_classic</span>()</span>
@@ -130,7 +130,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="fig-hist" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="Q3_files/figure-html/fig-hist-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;1: Histogram of daily sights of Numbats across Australia</figcaption>
+<figcaption class="figure-caption">Figure&nbsp;1: Histogram of daily sightings of Numbats across Australia</figcaption>
 </figure>
 </div>
 </div>
@@ -161,11 +161,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="alert alert-block alert-warning">
-💡 As we can observe through the above visualisation, the stem and leaf plot illustrates a very similar understanding of the distribution of the data as the histogram plot. The stem leaf plot was able to capture the fact that majority of the observations were below 5 sightings per day and <strong> a right skew in the data </strong> could be observed. 💡
+💡 As we can observe through the above visualisation, the stem and leaf plot illustrates a very similar understanding of the distribution of the data as the histogram plot in <a href="#fig-hist">Figure&nbsp;1</a>. The stem leaf plot was able to capture the fact that majority of the observations were below 5 sightings per day and <strong> a right skew in the data </strong> could be observed. 💡
 </div>
 </section>
-<section id="data-transformation" class="level1">
-<h1>Data transformation</h1>
+<section id="data-transformation" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Data transformation</h1>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>pl2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> df_numbats_daily, </span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>              <span class="fu">aes</span>(<span class="at">x =</span> daily_sightings <span class="sc">^</span> <span class="sc">-</span><span class="dv">2</span>)) <span class="sc">+</span> </span>
@@ -185,8 +185,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 💡 Upon applying the <strong>reciprocal transformation on the square of the daily sightings per day</strong> across Australia, we were able to symmetrise the data to some extent. While working with symmetric distributions such as the Gaussian distribution is ideal for gaining critical insights through visualisations, however, as observed through <a href="#fig-transform">Figure&nbsp;2</a>, the symmetrisation could not be adequately performed, partially due to lack of data. Furthermore, utilisation of transformations for the daily sightings data <strong>lead to decrease in intuition of the data and its corresponding visualisation as it is no longer easily understandable on how the data can be comprehended</strong>. 💡
 </div>
 </section>
-<section id="five-number-summaries-based-on-tukeys-eda" class="level1">
-<h1>Five number summaries based on Tukey’s EDA</h1>
+<section id="five-number-summaries-based-on-tukeys-eda" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Five number summaries based on Tukey’s EDA</h1>
 <p>Tukey’s EDA is based on the following 5 number summaries:</p>
 <ul>
 <li>Minimum value</li>
@@ -237,8 +237,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 💡 The lower and upper hinge in Tukey’s EDA correspond to the <b> 1st quartile (25th percentile) and 3rd quartile (75th percentile) </b> observations respectively. 💡
 </div>
 </section>
-<section id="step-inner-and-outer-fence-calculation" class="level1">
-<h1>Step, Inner and Outer fence calculation</h1>
+<section id="step-inner-and-outer-fence-calculation" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Step, Inner and Outer fence calculation</h1>
 <p>Based on <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1332871/">Tukey’s EDA</a>, following are the salient definitions:</p>
 <ol type="1">
 <li><strong>Step</strong>: Step is dependent on the Inter Quartile Range (IQR) and is calculated as <strong>1.5 times the IQR</strong>.</li>
@@ -283,8 +283,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p><a href="#fig-tukeda">Figure&nbsp;3</a> illustrates a boxplot based on key values calculated in <a href="#tbl-fivnum">Table&nbsp;1</a> and <a href="#tbl-stepfence">Table&nbsp;2</a>.</p>
 </section>
-<section id="boxplot-of-daily-sightings" class="level1">
-<h1>Boxplot of daily sightings</h1>
+<section id="boxplot-of-daily-sightings" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Boxplot of daily sightings</h1>
 <p>Let us try to visualise the observations of daily sightings through a boxplot as illustrated by <a href="#fig-box">Figure&nbsp;4</a></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>pl4 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> df_numbats_daily,<span class="fu">aes</span>(<span class="at">y =</span> daily_sightings),<span class="at">color =</span> <span class="st">'black'</span>) <span class="sc">+</span> <span class="fu">geom_boxplot</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Daily sightings"</span>) <span class="sc">+</span> <span class="fu">theme_classic</span>()</span>
@@ -299,7 +299,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p><a href="#fig-box">Figure&nbsp;4</a> illustrates a boxplot with the distribution of daily sightings of Numbats across Australia. We can observe a total of 4 outlier values which are illustrated as point observations in the boxplot. These are <strong>those observations which are greater than the upper whisker</strong>. The upper whisker is calculated as below.</p>
-<p><span class="math display">\[\boxed{Upper Whisker = (1.5 * IQR) + Q3}\]</span> Based on the distribution of the histogram in <a href="#fig-hist">Figure&nbsp;1</a> and the stem plot, we can observe that the number of sightings which are above 5 per day are extremely low. This has been corroborated by the boxplot in <a href="#fig-box">Figure&nbsp;4</a>. As a result, we can conclude that the singular points marked in the boxplot are <strong>reasonably marked as outliers based on the upper whisker value as calculated above</strong>.</p>
+<p><span class="math display">\[\boxed{Upper Whisker = (1.5 * IQR) + Q3}\]</span> Based on the distribution of the histogram in <a href="#fig-hist">Figure&nbsp;1</a> and the stem plot, we can observe that <strong>the number of sightings which are above 5 per day are extremely low</strong>. This has been corroborated by the boxplot in <a href="#fig-box">Figure&nbsp;4</a>. As a result, we can conclude that the singular points marked in the boxplot are <strong>reasonably marked as outliers based on the upper whisker value as calculated above by the default settings of the boxplot</strong>.</p>
+</section>
+<section id="resources" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Resources</h1>
+<p>The above analysis was undertaken with the help of the following software and packages:</p>
+<ol type="1">
+<li><strong>RStudio</strong>: Integrated Development for R. RStudio, PBC, Boston, MA URL http://www.rstudio.com/.</li>
+<li><strong>ggplot2</strong>: H. Wickham. ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York, 2016.</li>
+<li><strong>tidyverse</strong>: Wickham H, Averick M, Bryan J, Chang W, McGowan LD, François R, Grolemund G, Hayes A, Henry L, Hester J, Kuhn M, Pedersen TL, Miller E, Bache SM, Müller K, Ooms J, Robinson D, Seidel DP, Spinu V, Takahashi K, Vaughan D, Wilke C, Woo K, Yutani H (2019). “Welcome to the tidyverse.” <em>Journal of Open Source Software</em>, <em>4</em>(43), 1686. doi:10.21105/joss.01686 <a href="https://doi.org/10.21105/joss.01686" class="uri">https://doi.org/10.21105/joss.01686</a>.</li>
+<li><strong>knitr</strong>: Yihui Xie (2014) knitr: A Comprehensive Tool for Reproducible Research in R. In Victoria Stodden, Friedrich Leisch and Roger D. Peng, editors, Implementing Reproducible Computational Research. Chapman and Hall/CRC. ISBN 978-1466561595.</li>
+<li><strong>rmarkdown</strong>: Allaire J, Xie Y, Dervieux C, McPherson J, Luraschi J, Ushey K, Atkins A, Wickham H, Cheng J, Chang W, Iannone R (2023). <em>rmarkdown: Dynamic Documents for R</em>. R package version 2.23, <a href="https://github.com/rstudio/rmarkdown" class="uri">https://github.com/rstudio/rmarkdown</a>.</li>
+<li><strong>kableExtra</strong>: Zhu H (2023). <em>kableExtra: Construct Complex Table with ‘kable’ and Pipe Syntax</em>. http://haozhu233.github.io/kableExtra</li>
+<li><strong>visdat</strong>: Tierney N (2017). “visdat: Visualising Whole Data Frames.” <em>JOSS</em>, <em>2</em>(16), 355. doi:10.21105/joss.00355 <a href="https://doi.org/10.21105/joss.00355" class="uri">https://doi.org/10.21105/joss.00355</a>, <a href="http://dx.doi.org/10.21105/joss.00355" class="uri">http://dx.doi.org/10.21105/joss.00355</a>.</li>
+</ol>
 </section>
 
 </main>
