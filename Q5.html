@@ -71,8 +71,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <script src="Q5_files/libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="Q5_files/libs/lightable-0.0.1/lightable.css" rel="stylesheet">
-<link href="Q5_files/libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet">
-<script src="Q5_files/libs/bsTable-3.3.7/bootstrapTable.js"></script>
 
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -285,14 +283,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="plot-visualisation-of-bm-and-bl" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Plot visualisation of bm and bl</h1>
+<section id="plot-visualisation-of-bmfl-and-bl" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Plot visualisation of bm,fl and bl</h1>
 <div>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>pl1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> penguins_subset,<span class="fu">aes</span>(<span class="at">x =</span> bm,<span class="at">y =</span> fl)) <span class="sc">+</span> </span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Body mass (bm)"</span>,<span class="at">y =</span> <span class="st">"Flipper length (fl)"</span>) <span class="sc">+</span> <span class="fu">theme_classic</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">aspect.ratio=</span><span class="dv">1</span>)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>pl2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> penguins_subset,<span class="fu">aes</span>(<span class="at">x =</span> bm,<span class="at">y =</span> fl)) <span class="sc">+</span> </span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> species)) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Body mass (bm)"</span>,<span class="at">y =</span> <span class="st">"Flipper length (fl)"</span>,<span class="at">color =</span> <span class="st">"Species"</span>) <span class="sc">+</span> </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>pl2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> penguins_subset,<span class="fu">aes</span>(<span class="at">x =</span> bm,<span class="at">y =</span> bl)) <span class="sc">+</span> </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> species)) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Body mass (bm)"</span>,<span class="at">y =</span> <span class="st">"Bill length (bl)"</span>,<span class="at">color =</span> <span class="st">"Species"</span>) <span class="sc">+</span> </span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span> <span class="fu">scale_color_discrete_divergingx</span>(<span class="at">palette=</span><span class="st">"Zissou 1"</span>) </span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>pl1</span>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>pl2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -316,7 +314,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p></p><figcaption class="figure-caption">Figure&nbsp;1: Body mass Vs Flipper length</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;1: Body mass Vs Flipper length Vs Bill length</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -326,29 +324,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1 data-number="3"><span class="header-section-number">3</span> Lineup of 20 plots</h1>
 <section id="plot-a" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="plot-a"><span class="header-section-number">3.1</span> Plot A</h2>
-<p>Let us create the null plots for plot (a) in <a href="#fig-charts">Figure&nbsp;1</a> by permuting the body mass (bm) as shown by the code chunks below.</p>
+<p>Let us create the null plots for plot (a) in <a href="#fig-charts">Figure&nbsp;1</a> by permuting the residuals of the linear relationship between the var as shown by the code chunks below.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">201349</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">lineup</span>(<span class="fu">null_permute</span>(<span class="st">'bm'</span>), penguins_subset), <span class="fu">aes</span>(<span class="at">x =</span> bm, <span class="at">y =</span> fl),<span class="at">n =</span><span class="dv">20</span>) <span class="sc">+</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> .sample) <span class="sc">+</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text=</span><span class="fu">element_blank</span>(),</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title=</span><span class="fu">element_blank</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>lmodel <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="at">formula =</span> bm<span class="sc">~</span>fl,<span class="at">data =</span>  penguins_subset)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">lineup</span>(<span class="fu">null_lm</span>(bm<span class="sc">~</span>fl, <span class="at">method=</span><span class="st">"rotate"</span>),</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>              <span class="fu">augment</span>(lmodel)),</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>fl, <span class="at">y=</span>.resid)) <span class="sc">+</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm,<span class="at">color =</span> <span class="st">'blue'</span>,<span class="at">se=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>.sample, <span class="at">ncol=</span><span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text =</span> <span class="fu">element_blank</span>(), </span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.border =</span> <span class="fu">element_rect</span>(<span class="at">fill=</span><span class="cn">NA</span>, <span class="at">colour=</span><span class="st">"black"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-nulla" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="Q5_files/figure-html/fig-nulla-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;2: Null plots for bm vs fl</figcaption>
+<figcaption class="figure-caption">Figure&nbsp;2: Null plots for residuals of bm vs fl linear relationship</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p><a href="#fig-nulla">Figure&nbsp;2</a> illustrates the null plots for data points <strong>generated by permuting the value of body mass (bm)</strong>.</p>
+<p><a href="#fig-nulla">Figure&nbsp;2</a> illustrates the null plots for data points of residuals <strong>generated by randomising the residuals.</strong>.</p>
 <div class="alert alert-block alert-warning">
 <p>💡</p>
 <p>The null hypothesis and the alternative hypothesis are as follows:</p>
-<p><span class="math inline">\(H_o\)</span> = The variables body mass (bm) and flipper length (fl) have <strong>no association with one another.</strong> <span class="math inline">\(H_1\)</span> = Body mass (bm) and flipper length(fl) are related to each other.</p>
-<p>Method : Permutation of the body mass (bm) variable. 💡</p>
+<p><span class="math inline">\(H_o\)</span> = The variables body mass (bm) and flipper length (fl) have <strong>a weak linear relationship</strong>.<br>
+<span class="math inline">\(H_1\)</span> = Body mass (bm) and flipper length(fl) do not have a weak linearly relationship to each other.</p>
+<p>Method : Randomising the residuals using the null_lm function. 💡</p>
 </div>
 </section>
 <section id="plot-b" class="level2" data-number="3.2">
@@ -357,7 +360,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">201344</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">lineup</span>(<span class="fu">null_permute</span>(<span class="st">"species"</span>), penguins_subset, <span class="at">n=</span><span class="dv">20</span>),</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>bm, <span class="at">y=</span>fl, <span class="at">colour=</span>species)) <span class="sc">+</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>bm, <span class="at">y=</span>bl, <span class="at">colour=</span>species)) <span class="sc">+</span></span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha=</span><span class="fl">0.7</span>) <span class="sc">+</span></span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>.sample, <span class="at">ncol=</span><span class="dv">5</span>) <span class="sc">+</span></span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  colorspace<span class="sc">::</span><span class="fu">scale_color_discrete_divergingx</span>(<span class="at">palette=</span><span class="st">"Temps"</span>) <span class="sc">+</span></span>
@@ -371,7 +374,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="fig-nullb" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="Q5_files/figure-html/fig-nullb-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;3: Null plots for bm vs fl colored by different species</figcaption>
+<figcaption class="figure-caption">Figure&nbsp;3: Null plots for bm vs bl colored by different species</figcaption>
 </figure>
 </div>
 </div>
@@ -379,8 +382,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="alert alert-block alert-warning">
 <p>💡</p>
 <p>The null hypothesis and the alternative hypothesis are as follows:</p>
-<p><span class="math inline">\(H_o\)</span> = The variables body mass (bm) and flipper length (fl) have <strong>no association with the type of penguin species.</strong> <span class="math inline">\(H_1\)</span> = Body mass (bm) and flipper length(fl) are related are dependent upon the particular type of species.</p>
-<p>Method : Permutation of the species variable. 💡</p>
+<p><span class="math inline">\(H_o\)</span> = The variables body mass (bm) and flipper length (fl) have <strong>no association with the type of penguin species</strong>.<br>
+<span class="math inline">\(H_1\)</span> = Body mass (bm) and flipper length(fl) are related are dependent upon the particular type of species.</p>
+<p>Method : Permutation of the “species” variable using the null_permute function. 💡</p>
 </div>
 </section>
 </section>
@@ -389,22 +393,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="plot-a-1" class="level2" data-number="4.1">
 <h2 data-number="4.1" class="anchored" data-anchor-id="plot-a-1"><span class="header-section-number">4.1</span> Plot A</h2>
 <p>Based on the reports of 8 cases, following observations were recorded:</p>
-<p>A total of 7 of the 8 observations recorded that they observed plot 3 to be the most unique plot in the lineup while one observation recorded plot 14 as a unique plot.</p>
-<p>Some of the reasons outlined for those who chose plot 3 are follows:</p>
+<p>A total of 2 out of the 8 observations chose plot 18 as the most unique plot which is the actual plot.</p>
+<p>Some of the reasons outlined for those who chose plot 18 are follows:</p>
 <ul>
 <li>Less noise in the data.</li>
 <li>Looks like a linear relationship.</li>
-<li>Less variation in the data.</li>
-<li>Less spread out data compared to the rest of the plots.</li>
+<li>Better homoscedacity.</li>
 </ul>
-<p>One subject however chose plot 14 and the reason was attributed to the extreme presence of outlier values which is not the case for the rest of the plots.</p>
+<p>6 subjects however chose the remaining plots as there was no clear distinctive pattern in the scatterplot of the residuals.</p>
 <p>Based on the above statistics, the P-value maybe calculated through the code-chunk below.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>p_val <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">dbinom</span>(<span class="dv">7</span><span class="sc">:</span><span class="dv">8</span>,<span class="dv">8</span>,<span class="dv">1</span><span class="sc">/</span><span class="dv">20</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>p_val <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">dbinom</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">8</span>,<span class="dv">8</span>,<span class="dv">1</span><span class="sc">/</span><span class="dv">20</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="alert alert-block alert-warning">
 <p>💡</p>
-<p>Based on the statistics observed by the reports of the 8 test subjects, the P-value of 7 or more people choosing plot 3 as the most unique plot in the line up is <strong>5.9765625^{-9}</strong>. Such a low score indicates that there is overwhelming evidence to reject the null hypothesis in favor of the alternate hypothesis <strong>which states that the variables of body mass (bm) and flipper length (fl) are indeed related to each other</strong>. 💡</p>
+<p>Based on the statistics observed by the reports of the 8 test subjects, the P-value of 2 or more people choosing plot 18 as the most unique plot in the line up is <strong>0.0572447</strong>. Such a value of score indicates that there is <strong>not enough evidence to reject the null hypothesis</strong> in favor of the alternate hypothesis <strong>which states that the variables of body mass (bm) and flipper length (fl) are weakly related to each other in a linear fashion</strong>. 💡</p>
 </div>
 </section>
 <section id="plot-b-1" class="level2" data-number="4.2">
@@ -413,8 +416,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>All of the 8 observations recorded that they observed plot 10 to be the most unique plot in the lineup.</p>
 <p>Some of the reasons outlined for those who chose plot 10 are as follows:</p>
 <ul>
-<li>Clear band of 3 different colors observed.</li>
-<li>Less intermixing of the different colors.</li>
+<li>Less dispersion in the residuals.</li>
+<li>Even distribution across the blue ideal line.</li>
 <li>A definitive pattern in the colors observed.</li>
 <li>Concentration of red color observed at the top end.</li>
 </ul>
@@ -426,6 +429,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Based on the statistics observed by the reports of the 8 test subjects, the P-value of 8 choosing plot 10 as the most unique plot in the line up is <strong>3.90625^{-11}</strong>. Such a low score indicates that there is overwhelming evidence to reject the null hypothesis in favor of the alternate hypothesis <strong>which states that the variables of body mass (bm) and flipper length (fl) are indeed related to the type of penguin species</strong>. 💡</p>
 </div>
 </section>
+</section>
+<section id="resources" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Resources</h1>
+<p>The above analysis was undertaken with the help of the following software and packages:</p>
+<ol type="1">
+<li><strong>RStudio</strong>: Integrated Development for R. RStudio, PBC, Boston, MA URL http://www.rstudio.com/.</li>
+<li><strong>ggplot2</strong>: H. Wickham. ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York, 2016.</li>
+<li><strong>tidyverse</strong>: Wickham H, Averick M, Bryan J, Chang W, McGowan LD, François R, Grolemund G, Hayes A, Henry L, Hester J, Kuhn M, Pedersen TL, Miller E, Bache SM, Müller K, Ooms J, Robinson D, Seidel DP, Spinu V, Takahashi K, Vaughan D, Wilke C, Woo K, Yutani H (2019). “Welcome to the tidyverse.” <em>Journal of Open Source Software</em>, <em>4</em>(43), 1686. doi:10.21105/joss.01686 <a href="https://doi.org/10.21105/joss.01686" class="uri">https://doi.org/10.21105/joss.01686</a>.</li>
+<li><strong>knitr</strong>: Yihui Xie (2014) knitr: A Comprehensive Tool for Reproducible Research in R. In Victoria Stodden, Friedrich Leisch and Roger D. Peng, editors, Implementing Reproducible Computational Research. Chapman and Hall/CRC. ISBN 978-1466561595.</li>
+<li><strong>rmarkdown</strong>: Allaire J, Xie Y, Dervieux C, McPherson J, Luraschi J, Ushey K, Atkins A, Wickham H, Cheng J, Chang W, Iannone R (2023). <em>rmarkdown: Dynamic Documents for R</em>. R package version 2.23, <a href="https://github.com/rstudio/rmarkdown" class="uri">https://github.com/rstudio/rmarkdown</a>.</li>
+<li><strong>kableExtra</strong>: Zhu H (2023). <em>kableExtra: Construct Complex Table with ‘kable’ and Pipe Syntax</em>. http://haozhu233.github.io/kableExtra</li>
+<li><strong>visdat</strong>: Tierney N (2017). “visdat: Visualising Whole Data Frames.” <em>JOSS</em>, <em>2</em>(16), 355. doi:10.21105/joss.00355 <a href="https://doi.org/10.21105/joss.00355" class="uri">https://doi.org/10.21105/joss.00355</a>, <a href="http://dx.doi.org/10.21105/joss.00355" class="uri">http://dx.doi.org/10.21105/joss.00355</a>.</li>
+</ol>
 </section>
 
 </main>

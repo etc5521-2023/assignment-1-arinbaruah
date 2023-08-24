@@ -153,3 +153,20 @@ pl4
 
 $$\boxed{Upper Whisker = (1.5 * IQR) + Q3}$$
 Based on the distribution of the histogram in @fig-hist and the stem plot, we can observe that the number of sightings which are above 5 per day are extremely low. This has been corroborated by the boxplot in @fig-box. As a result, we can conclude that the singular points marked in the boxplot are __reasonably marked as outliers based on the upper whisker value as calculated above__.
+
+# Resources
+
+The above analysis was undertaken with the help of the following software and packages:
+
+1. __RStudio__: Integrated Development for R. RStudio, PBC, Boston, MA URL http://www.rstudio.com/.
+2. __ggplot2__: H. Wickham. ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York, 2016.
+3. __tidyverse__: Wickham H, Averick M, Bryan J, Chang W, McGowan LD, François R, Grolemund G, Hayes A, Henry L, Hester J, Kuhn M, Pedersen TL, Miller E, Bache SM, Müller K,
+  Ooms J, Robinson D, Seidel DP, Spinu V, Takahashi K, Vaughan D, Wilke C, Woo K, Yutani H (2019). “Welcome to the tidyverse.” _Journal of Open Source Software_,
+  *4*(43), 1686. doi:10.21105/joss.01686 <https://doi.org/10.21105/joss.01686>.
+4. __knitr__: Yihui Xie (2014) knitr: A Comprehensive Tool for Reproducible Research in R. In Victoria Stodden, Friedrich Leisch and Roger D. Peng, editors, Implementing
+  Reproducible Computational Research. Chapman and Hall/CRC. ISBN 978-1466561595.
+5. __rmarkdown__: Allaire J, Xie Y, Dervieux C, McPherson J, Luraschi J, Ushey K, Atkins A, Wickham H, Cheng J, Chang W, Iannone R (2023). _rmarkdown: Dynamic Documents for R_.
+  R package version 2.23, <https://github.com/rstudio/rmarkdown>.
+6. __kableExtra__: Zhu H (2023). _kableExtra: Construct Complex Table with 'kable' and Pipe Syntax_. http://haozhu233.github.io/kableExtra
+7. __visdat__: Tierney N (2017). “visdat: Visualising Whole Data Frames.” _JOSS_, *2*(16), 355. doi:10.21105/joss.00355 <https://doi.org/10.21105/joss.00355>,
+  <http://dx.doi.org/10.21105/joss.00355>.
