@@ -1,6 +1,6 @@
 ---
 title: "Q4"
-author: "Arindom Baruah (Q4)"
+author: "Arindom Baruah (32779267)"
 execute: 
   echo: true
   message: false

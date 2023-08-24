@@ -1,5 +1,5 @@
 ---
-title: "ETC 5521 Assignment 1 Q2"
+title: "Q2"
 author: "Arindom Baruah (32779267)"
 format: 
   html:
